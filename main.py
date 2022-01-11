@@ -167,42 +167,37 @@ def getRecipeByIngredients(ingr, nr):
             stringOfRecipleTitle = ""
             for i in recipeTitle:
                 n += 1
-                stringOfRecipleTitle = stringOfRecipleTitle + str(n)+ "." + str(i) + '\n'
+                stringOfRecipleTitle = stringOfRecipleTitle + str(n) + "." + str(i) + '\n'
             return stringOfRecipleTitle
 
         elif len(recipeTitle) == 0:
-            return "Recipe bot: There are no recipes available for the entered ingredients. Please start again..."
+            return 0
+            # "Recipe bot: There are no recipes available for the entered ingredients. Please start again..."
             # start the call again from the beggining
 
         else:
-            return "Recipe bot: There are only", len(recipeTitle), "recipes available."
+            return 1
+            # "Recipe bot: There are no recipes available for the entered ingredients. Please start again..."
     else:
-        pass  # TODO check for API error
+        return 2
+        # "Recipe bot: You have not entered a number between 1 or 15. Please start again..."
 
 
 # Create function to choose one of the retrieved recipes
 def chooseRecipe(number):
-    n = 0
-
-    # Print recipe titles
-    print("")
-    for i in recipeTitle:
-        print(n + 1, recipeTitle[n])
-        n += 1
-    print("")
-    print("Recipe bot: Choose a recipe by typing in the recipe's number.")
-
     # Check input (integer) and show respective recipe after selection, otherwise restart function
     choiceOfRecipe = number
     if 1 <= choiceOfRecipe <= len(recipeTitle):
         currentRecipeID.clear()
         currentRecipeID.append(recipeID[choiceOfRecipe - 1])
-        print("Recipe bot: You chose", recipeTitle[choiceOfRecipe - 1], "- good choice!")
-        return "Recipe bot: You chose", recipeTitle[choiceOfRecipe - 1], "- good choice!"
+        userChoice = "Recipe bot: You chose \n" + recipeTitle[choiceOfRecipe - 1] + "\n" + " good choice!\n"
+        return userChoice
     else:
-        pass  # TODO check for API error
+        return 3
+    # "Recipe bot: You have not entered a number between 1 or len(recipeTitle). Please start again..."
 
 
+# Create function to clear the array of recipes
 def clearRecipes():
     currentRecipeID.clear()
     recipeID.clear()
@@ -212,12 +207,9 @@ def clearRecipes():
 
 # Second step: code that will ask the user for a sentence and then spit out a response, in case user did not quit
 def chat(msg):
-    print("Recipe bot: Ask me questions about the chosen recipe.")
-    print(
-        "Recipe bot: You can ask me about the ingredients, the cooking steps, the recipe's nutrition or simply ask to go back or make a new search.")
     message = str(msg)
     if message.lower() == "quit":
-        return 0
+        return "quit"
     results = model.predict([bag_of_words(message, words)])[0]
     results_index = numpy.argmax(results)
     tag = labels[results_index]
@@ -229,8 +221,6 @@ def chat(msg):
             if tg['tag'] == tag:
                 responses = tg['responses']
 
-        print("Recipe bot:", random.choice(responses))
-
         # Link chatbot (intent of user) to respective function in program
         if responses == ["These are the ingredients:"]:
             return getRecipeIngredients(str(currentRecipeID[0]))
@@ -239,12 +229,14 @@ def chat(msg):
             return getRecipeInstructions(str(currentRecipeID[0]))
 
         elif responses == ["Welcome (back) to the overview:"]:
-            responseFromApi = []
             string = "Welcome (back) to the overview:"
-            responseFromApi.append(string)
-            responseFromApi.append(recipeTitle)
-            print(responseFromApi)
-            return responseFromApi
+            n = 0
+            stringOfRecipleTitle = ""
+            for i in recipeTitle:
+                n += 1
+                stringOfRecipleTitle = stringOfRecipleTitle + str(n) + "." + str(i) + '\n'
+            overviewMessage = string + "\n" + stringOfRecipleTitle
+            return overviewMessage
 
         elif responses == ["Here, you can start again with new ingredients:"]:
             return clearRecipes()
@@ -260,8 +252,6 @@ def chat(msg):
 
 # Create function to retrieve the ingredients of a specific recipe
 def getRecipeIngredients(id):
-    # Sending recipe ingredients...
-    print("INGREDIENTS")
     # Payload sent to the API
     payload = {
         'id': id
@@ -283,16 +273,14 @@ def getRecipeIngredients(id):
         ing_unit.append(results["ingredients"][n]["amount"]["metric"]["unit"])
         n += 1
     n = 0
-    fullRecipeIngredients = []
+    recipeIngredients = ""
     for ingredient in range(len(ing_name)):
-        recipeIngredients = ""
-        recipeIngredients = recipeIngredients + str(ing_wei[n])
-        recipeIngredients = recipeIngredients + " " + str(ing_unit[n])
-        recipeIngredients = recipeIngredients + " " + str(ing_name[n])
-        fullRecipeIngredients.append(recipeIngredients)
+        recipeIngredients = recipeIngredients + str(ing_wei[n]) + " "
+        recipeIngredients = recipeIngredients + " " + str(ing_unit[n]) + " "
+        recipeIngredients = recipeIngredients + " " + str(ing_name[n]) + '\n'
         n += 1
 
-    return fullRecipeIngredients
+    return recipeIngredients
 
 
 # Create function to retrieve the instructions for a specific recipe
@@ -312,13 +300,12 @@ def getRecipeInstructions(id):
     results = r.json()
 
     n = 0
-    listOfInstructions = []
+    listOfInstructions = ""
     # State the name of the steps
     for step in results:
         Instructions = ""
         Step = "Step" + str(n + 1) + ":" + str(results[n]["name"])
-        Instructions = Instructions + Step
-
+        listOfInstructions = listOfInstructions + Step + '\n'
         # List all sub-steps
         for sub_step in results[n]['steps']:
             sub_steps = sub_step['step']
@@ -332,16 +319,17 @@ def getRecipeInstructions(id):
                     if b[0] == " ":
                         c = b.replace(" ", "", 1)
                         substep = " - " + str(c) + "."
-                        Instructions = Instructions + substep
+                        Instructions = Instructions + substep + '\n'
                     else:
                         substep = " - " + str(b) + "."
-                        Instructions = Instructions + substep
+                        Instructions = Instructions + substep + '\n'
                 else:
                     substep = " – " + s + "."
-                    Instructions = Instructions + substep
+                    Instructions = Instructions + substep + '\n'
 
-        listOfInstructions.append(Instructions)
+        listOfInstructions = listOfInstructions + Instructions + '\n'
         n += 1
+    print(listOfInstructions)
     return listOfInstructions
 
 
@@ -358,13 +346,10 @@ def getRecipeNutrition(id):
     # Get request to the API. Print nutrition results
     r = requests.get(endpoint, params=payload)
     results = r.json()
-    nutrition = []
-    calories = "calories:" + str(results["calories"])
-    carbs = "carbs:" + str(results["carbs"])
-    fat = "fat:" + str(results["fat"])
-    protein = "protein:" + str(results["protein"])
-    nutrition.append(calories)
-    nutrition.append(carbs)
-    nutrition.append(fat)
-    nutrition.append(protein)
+    nutrition = ""
+    calories = "calories:" + str(results["calories"]) + '\n'
+    carbs = "carbs:" + str(results["carbs"]) + '\n'
+    fat = "fat:" + str(results["fat"]) + '\n'
+    protein = "protein:" + str(results["protein"]) + '\n'
+    nutrition = calories + carbs + fat + protein
     return nutrition
