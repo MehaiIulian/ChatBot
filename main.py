@@ -161,7 +161,7 @@ def getRecipeByIngredients(ingr, nr):
         for i in results:
             recipeTitle.append(results[n]["title"])
             recipeID.append(results[n]["id"])
-            recipeImage.append(results[n]["image"]) #TODO
+            #recipeImage.append(results[n]["image"]) #TODO
             n += 1
 
         if len(recipeTitle) >= numberOfRecipes:
