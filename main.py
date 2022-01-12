@@ -23,6 +23,7 @@ api_key = "66574f61969e49d5b6c7d29f644b41d5"
 currentRecipeID = []
 recipeID = []
 recipeTitle = []
+recipeImage = []
 
 with open("intents.json") as file:
     data = json.load(file)
@@ -160,6 +161,7 @@ def getRecipeByIngredients(ingr, nr):
         for i in results:
             recipeTitle.append(results[n]["title"])
             recipeID.append(results[n]["id"])
+            recipeImage.append(results[n]["image"])
             n += 1
 
         if len(recipeTitle) >= numberOfRecipes:
@@ -190,7 +192,8 @@ def chooseRecipe(number):
     if 1 <= choiceOfRecipe <= len(recipeTitle):
         currentRecipeID.clear()
         currentRecipeID.append(recipeID[choiceOfRecipe - 1])
-        userChoice = "Recipe bot: You chose \n" + recipeTitle[choiceOfRecipe - 1] + "\n" + " good choice!\n"
+        userChoice = "Recipe bot: You chose \n" + recipeTitle[choiceOfRecipe - 1] + "\n" + recipeImage[
+            choiceOfRecipe - 1] + "\n" + " good choice!\n "
         return userChoice
     else:
         return 3
@@ -329,7 +332,6 @@ def getRecipeInstructions(id):
 
         listOfInstructions = listOfInstructions + Instructions + '\n'
         n += 1
-    print(listOfInstructions)
     return listOfInstructions
 
 
@@ -346,7 +348,6 @@ def getRecipeNutrition(id):
     # Get request to the API. Print nutrition results
     r = requests.get(endpoint, params=payload)
     results = r.json()
-    nutrition = ""
     calories = "calories:" + str(results["calories"]) + '\n'
     carbs = "carbs:" + str(results["carbs"]) + '\n'
     fat = "fat:" + str(results["fat"]) + '\n'
