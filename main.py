@@ -181,16 +181,11 @@ def getRecipeByIngredients(ingr, nr):
 
 # Create function to choose one of the retrieved recipes
 def chooseRecipe(number):
-    # Check input (integer) and show respective recipe after selection, otherwise restart function
     choiceOfRecipe = number
-    if 1 <= choiceOfRecipe <= len(recipeTitle):
-        currentRecipeID.clear()
-        currentRecipeID.append(recipeID[choiceOfRecipe - 1])
-        userChoice = "Recipe bot: You chose \n" + recipeTitle[choiceOfRecipe - 1] + "\n" + " good choice!\n "
-        return userChoice
-    else:
-        return 2
-    # "Recipe bot: You have not entered a number between 1 or len(recipeTitle). Please start again..."
+    currentRecipeID.clear()
+    currentRecipeID.append(recipeID[choiceOfRecipe - 1])
+    userChoice = "Recipe bot: You chose \n" + recipeTitle[choiceOfRecipe - 1] + "\n" + " good choice!\n "
+    return userChoice
 
 
 # Create function to clear the array of recipes
