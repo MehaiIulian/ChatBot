@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-#adsadas
+
 from main import getRecipeByIngredients, chooseRecipe, chat
 
 app = Flask(__name__)
