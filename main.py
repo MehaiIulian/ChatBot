@@ -23,7 +23,6 @@ api_key = "66574f61969e49d5b6c7d29f644b41d5"
 currentRecipeID = []
 recipeID = []
 recipeTitle = []
-#recipeImage = [] #TODO
 
 with open("intents.json") as file:
     data = json.load(file)
@@ -141,7 +140,7 @@ def getRecipeByIngredients(ingr, nr):
     ingredients = ",".join(ingredients.split(" "))
 
     # Defining the payload sent to the API
-    if 1 <= numberOfRecipes <= 10:
+    if 1 <= numberOfRecipes <= 15:
 
         payload = {
             'ingredients': ingredients,
@@ -161,10 +160,9 @@ def getRecipeByIngredients(ingr, nr):
         for i in results:
             recipeTitle.append(results[n]["title"])
             recipeID.append(results[n]["id"])
-            #recipeImage.append(results[n]["image"]) #TODO
             n += 1
 
-        if len(recipeTitle) >= numberOfRecipes:
+        if numberOfRecipes >= len(recipeTitle) >= 0:
             n = 0
             stringOfRecipleTitle = ""
             for i in recipeTitle:
@@ -172,16 +170,12 @@ def getRecipeByIngredients(ingr, nr):
                 stringOfRecipleTitle = stringOfRecipleTitle + str(n) + "." + str(i) + '\n'
             return stringOfRecipleTitle
 
-        elif len(recipeTitle) == 0:
-            return 0
-            # "Recipe bot: There are no recipes available for the entered ingredients. Please start again..."
-            # start the call again from the beggining
-
         else:
-            return 1
-            # "Recipe bot: There are no recipes available for the entered ingredients. Please start again..."
+            return 0
+            # "Recipe bot: There are no recipes available for the entered ingredients or you have not entered valid ingredients. Please start again..."
+            # start the call again from the beggining
     else:
-        return 2
+        return 1
         # "Recipe bot: You have not entered a number between 1 or 15. Please start again..."
 
 
@@ -195,7 +189,7 @@ def chooseRecipe(number):
         userChoice = "Recipe bot: You chose \n" + recipeTitle[choiceOfRecipe - 1] + "\n" + " good choice!\n "
         return userChoice
     else:
-        return 3
+        return 2
     # "Recipe bot: You have not entered a number between 1 or len(recipeTitle). Please start again..."
 
 
