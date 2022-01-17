@@ -193,7 +193,7 @@ def clearRecipes():
     currentRecipeID.clear()
     recipeID.clear()
     recipeTitle.clear()
-    return 11
+    return 1
 
 
 # Second step: code that will ask the user for a sentence and then spit out a response, in case user did not quit
@@ -233,7 +233,7 @@ def chat(msg):
             return clearRecipes()
 
         elif responses == ["You are welcome!"]:
-            return responses
+            return 2
 
         elif responses == ["See the recipe's nutrition information:"]:
             return getRecipeNutrition(str(currentRecipeID[0]))
@@ -322,7 +322,8 @@ def getRecipeInstructions(id):
         n += 1
     return listOfInstructions
 
-#this is a test
+
+# this is a test
 
 # Create function to retrieve the nutrition details of a specific recipe
 def getRecipeNutrition(id):
