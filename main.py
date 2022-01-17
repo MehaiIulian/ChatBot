@@ -233,7 +233,7 @@ def chat(msg):
             return clearRecipes()
 
         elif responses == ["You are welcome!"]:
-            return "You are welcome!Hope you found something great! You can also check for more recipes anytime!"
+            return responses
 
         elif responses == ["See the recipe's nutrition information:"]:
             return getRecipeNutrition(str(currentRecipeID[0]))
