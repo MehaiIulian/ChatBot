@@ -179,11 +179,17 @@ def getRecipeByIngredients(ingr, nr):
 
 # Create function to choose one of the retrieved recipes
 def chooseRecipe(number):
-    choiceOfRecipe = number
-    currentRecipeID.clear()
-    currentRecipeID.append(recipeID[choiceOfRecipe - 1])
-    userChoice = "Recipe bot: You chose \n" + recipeTitle[choiceOfRecipe - 1] + "\n" + " good choice!\n "
-    return userChoice
+    if(number <= len(recipeID)):
+        try:
+            choiceOfRecipe = number
+            currentRecipeID.clear()
+            currentRecipeID.append(recipeID[choiceOfRecipe - 1])
+            userChoice = "Recipe bot: You chose \n" + recipeTitle[choiceOfRecipe - 1] + "\n" + " good choice!\n "
+            return userChoice
+
+        except IndexError:
+            chooseRecipe(number)
+
 
 
 # Create function to clear the array of recipes
