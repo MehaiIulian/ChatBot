@@ -17,7 +17,7 @@ nltk.download('punkt')
 stemmer = LancasterStemmer()
 
 # Define api key for spoonacular database
-api_key = "66574f61969e49d5b6c7d29f644b41d5"
+api_key = "bb238c76bf8e4034829176f6fbd152ca"
 
 # Create empty lists to store the current recipe id, the recipe ids of all recipes retrieved as well as their titles
 currentRecipeID = []
@@ -131,15 +131,13 @@ def bag_of_words(s, words):
 # Second step: code that will ask the user for a sentence and then spit out a response, in case user did not quit
 # Define main function: Retrieving recipes based on ingredients (input)
 def getRecipeByIngredients(ingr, nr):
-    currentRecipeID.clear()
-    recipeID.clear()
-    recipeTitle.clear()
+
     ingredients = ingr
     numberOfRecipes = nr
 
     ingredients = ",".join(ingredients.split(" "))
 
-    # Defining the payload sent to the API
+
     if 1 <= numberOfRecipes <= 15:
 
         payload = {
@@ -181,22 +179,14 @@ def getRecipeByIngredients(ingr, nr):
 
 # Create function to choose one of the retrieved recipes
 def chooseRecipe(number):
-    choiceOfRecipe = number
-    currentRecipeID.clear()
-    currentRecipeID.append(recipeID[choiceOfRecipe - 1])
-    userChoice = "Recipe bot: You chose \n" + recipeTitle[choiceOfRecipe - 1] + "\n" + " good choice!\n "
-    return userChoice
-
-
-
-
-
-# Create function to clear the array of recipes
-def clearRecipes():
-    currentRecipeID.clear()
-    recipeID.clear()
-    recipeTitle.clear()
-    return 1
+    try:
+        choiceOfRecipe = number
+        currentRecipeID.clear()
+        currentRecipeID.append(recipeID[choiceOfRecipe - 1])
+        userChoice = "Recipe bot: You chose \n" + recipeTitle[choiceOfRecipe - 1] + "\n" + " good choice!\n "
+        return userChoice
+    except IndexError:
+        chooseRecipe(number)
 
 
 # Second step: code that will ask the user for a sentence and then spit out a response, in case user did not quit
@@ -233,7 +223,10 @@ def chat(msg):
             return overviewMessage
 
         elif responses == ["Here, you can start again with new ingredients:"]:
-            return clearRecipes()
+            currentRecipeID.clear()
+            recipeID.clear()
+            recipeTitle.clear()
+            return 1
 
         elif responses == ["You are welcome!"]:
             return 2
@@ -293,12 +286,12 @@ def getRecipeInstructions(id):
     r = requests.get(endpoint, params=payload)
     results = r.json()
 
-    n = 0
+    n= 0
     listOfInstructions = ""
     # State the name of the steps
     for step in results:
         Instructions = ""
-        Step = "Step" + str(n + 1) + ":" + str(results[n]["name"])
+        Step = "Steps " + ":" + str(results[n]["name"])
         listOfInstructions = listOfInstructions + Step + '\n'
         # List all sub-steps
         for sub_step in results[n]['steps']:
