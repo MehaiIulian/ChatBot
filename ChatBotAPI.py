@@ -25,6 +25,7 @@ def getRecipeByIngredientsBot():
 def chooseRecipeBot():
     nr = request.args.get('nr')
     number = int(nr)
+    print(number)
     time.sleep(2)
     return jsonify(chatBotReply=chooseRecipe(number))
 
