@@ -15,7 +15,7 @@ def home():
 #http://127.0.0.1:5000/getRecipeByIngredients?ingr=chicken&nr=5
 @app.route('/getRecipeByIngredients', methods=['GET', 'POST'])
 def getRecipeByIngredientsBot():
-
+    time.sleep(2)
     ingredients = request.args.get('ingr');
     number = int(request.args.get('nr'))
     time.sleep(2)
@@ -24,6 +24,7 @@ def getRecipeByIngredientsBot():
 #http://127.0.0.1:5000/chooseRecipe?nr=5
 @app.route('/chooseRecipe', methods=['GET', 'POST'])
 def chooseRecipeBot():
+    time.sleep(2)
     number = int(request.args.get('nr'))
     time.sleep(2)
     return jsonify(chatBotReply=chooseRecipe(number))
@@ -32,6 +33,7 @@ def chooseRecipeBot():
 #http://127.0.0.1:5000/chat?msg=cooking steps
 @app.route('/chat', methods=['GET', 'POST'])
 def chatBot():
+    time.sleep(2)
     message = request.args.get('msg')
     time.sleep(2)
     return jsonify(chatBotReply=chat(message))
