@@ -131,7 +131,9 @@ def bag_of_words(s, words):
 # Second step: code that will ask the user for a sentence and then spit out a response, in case user did not quit
 # Define main function: Retrieving recipes based on ingredients (input)
 def getRecipeByIngredients(ingr, nr):
-    clearRecipes()
+    currentRecipeID.clear()
+    recipeID.clear()
+    recipeTitle.clear()
     ingredients = ingr
     numberOfRecipes = nr
 

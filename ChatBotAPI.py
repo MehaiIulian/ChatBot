@@ -18,6 +18,7 @@ def getRecipeByIngredientsBot():
     ingredients = request.args.get('ingr');
     number = int(request.args.get('nr'))
     time.sleep(2)
+    print(getRecipeByIngredients(ingredients, number))
     return jsonify(chatBotReply=getRecipeByIngredients(ingredients, number));
 
 #http://127.0.0.1:5000/chooseRecipe?nr=5
@@ -27,6 +28,7 @@ def chooseRecipeBot():
     number = int(nr)
     print(number)
     time.sleep(2)
+    print(chooseRecipe(number))
     return jsonify(chatBotReply=chooseRecipe(number))
 
 
@@ -35,6 +37,7 @@ def chooseRecipeBot():
 def chatBot():
     message = request.args.get('msg')
     time.sleep(2)
+    print(chat(message))
     return jsonify(chatBotReply=chat(message))
 
 
