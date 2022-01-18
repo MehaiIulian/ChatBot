@@ -189,6 +189,8 @@ def chooseRecipe(number):
 
         except IndexError:
             chooseRecipe(number)
+    else:
+        return 0
 
 
 
