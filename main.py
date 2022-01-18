@@ -132,8 +132,6 @@ def bag_of_words(s, words):
 # Define main function: Retrieving recipes based on ingredients (input)
 def getRecipeByIngredients(ingr, nr):
     clearRecipes()
-    print(
-        "Recipe bot: Please enter between 1 and 10 ingredients that you want to use for a recipe. Enter them in singular form separated by a space (for example: milk egg chicken).")
     ingredients = ingr
     numberOfRecipes = nr
 
