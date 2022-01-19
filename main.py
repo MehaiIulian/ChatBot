@@ -198,6 +198,7 @@ def chooseRecipe(number):
     return userChoice
 
 
+
 # Second step: code that will ask the user for a sentence and then spit out a response, in case user did not quit
 def chat(msg):
     global currentRecipeID
