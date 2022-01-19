@@ -125,18 +125,22 @@ def bag_of_words(s, words):
 
     return numpy.array(bag)
 
+
 currentRecipeID = -1
 recipeID = []
 recipeTitle = []
 
-def clearRecipes():
 
+def clearRecipes():
     global currentRecipeID
     currentRecipeID = -1
     recipeID.clear()
     recipeTitle.clear()
 
+
 stringOfRecipleTitle = ""
+
+
 # Second step: code that will ask the user for a sentence and then spit out a response, in case user did not quit
 # Define main function: Retrieving recipes based on ingredients (input)
 def getRecipeByIngredients(ingr, nr):
@@ -170,9 +174,8 @@ def getRecipeByIngredients(ingr, nr):
                 recipeTitle.append(results[n]["title"])
                 recipeID.append(results[n]["id"])
                 n += 1
-            except:
+            except (IndexError, KeyError):
                 return 0
-
 
         if len(recipeTitle) == 0:
             return 0
@@ -200,12 +203,11 @@ def chooseRecipe(number):
     try:
         print(recipeID[number - 1])
         currentRecipeID = recipeID[number - 1]
-    except IndexError:
+    except (IndexError, KeyError):
         return 1
     userChoice = "Recipe bot: You chose \n" + recipeTitle[number - 1] + "\n" + " good choice!\n "
 
     return userChoice
-
 
 
 # Second step: code that will ask the user for a sentence and then spit out a response, in case user did not quit
@@ -264,24 +266,29 @@ def getRecipeIngredients(id):
     # Get request to the API. Save name, weight and unit of a specific ingredient and print all ingredients
     r = requests.get(endpoint, params=payload)
     results = r.json()
-    ing_name = []
-    ing_wei = []
-    ing_unit = []
-    n = 0
-    for ingredient in results["ingredients"]:
-        ing_name.append(results["ingredients"][n]["name"])
-        ing_wei.append(results["ingredients"][n]["amount"]["metric"]["value"])
-        ing_unit.append(results["ingredients"][n]["amount"]["metric"]["unit"])
-        n += 1
-    n = 0
-    recipeIngredients = ""
-    for ingredient in range(len(ing_name)):
-        recipeIngredients = recipeIngredients + str(ing_wei[n]) + " "
-        recipeIngredients = recipeIngredients + " " + str(ing_unit[n]) + " "
-        recipeIngredients = recipeIngredients + " " + str(ing_name[n]) + '\n'
-        n += 1
 
-    return recipeIngredients
+    try:
+        ing_name = []
+        ing_wei = []
+        ing_unit = []
+        n = 0
+        for ingredient in results["ingredients"]:
+            ing_name.append(results["ingredients"][n]["name"])
+            ing_wei.append(results["ingredients"][n]["amount"]["metric"]["value"])
+            ing_unit.append(results["ingredients"][n]["amount"]["metric"]["unit"])
+            n += 1
+        n = 0
+        recipeIngredients = ""
+        for ingredient in range(len(ing_name)):
+            recipeIngredients = recipeIngredients + str(ing_wei[n]) + " "
+            recipeIngredients = recipeIngredients + " " + str(ing_unit[n]) + " "
+            recipeIngredients = recipeIngredients + " " + str(ing_name[n]) + '\n'
+            n += 1
+
+        return recipeIngredients
+
+    except (KeyError, IndexError):
+        return 3
 
 
 # Create function to retrieve the instructions for a specific recipe
@@ -300,37 +307,40 @@ def getRecipeInstructions(id):
     r = requests.get(endpoint, params=payload)
     results = r.json()
 
-    n = 0
-    listOfInstructions = ""
-    # State the name of the steps
-    for step in results:
-        Instructions = ""
-        Step = "Steps " + ":" + str(results[n]["name"])
-        listOfInstructions = listOfInstructions + Step + '\n'
-        # List all sub-steps
-        for sub_step in results[n]['steps']:
-            sub_steps = sub_step['step']
-            sentenceSplit = sub_steps.split(".")
+    try:
+        n = 0
+        listOfInstructions = ""
+        # State the name of the steps
+        for step in results:
+            Instructions = ""
+            Step = "Steps " + ":" + str(results[n]["name"])
+            listOfInstructions = listOfInstructions + Step + '\n'
+            # List all sub-steps
+            for sub_step in results[n]['steps']:
+                sub_steps = sub_step['step']
+                sentenceSplit = sub_steps.split(".")
 
-            for s in sentenceSplit:
-                if not s:
-                    continue
-                if s[0] == " ":
-                    b = s.replace(" ", "", 1)
-                    if b[0] == " ":
-                        c = b.replace(" ", "", 1)
-                        substep = " - " + str(c) + "."
-                        Instructions = Instructions + substep + '\n'
+                for s in sentenceSplit:
+                    if not s:
+                        continue
+                    if s[0] == " ":
+                        b = s.replace(" ", "", 1)
+                        if b[0] == " ":
+                            c = b.replace(" ", "", 1)
+                            substep = " - " + str(c) + "."
+                            Instructions = Instructions + substep + '\n'
+                        else:
+                            substep = " - " + str(b) + "."
+                            Instructions = Instructions + substep + '\n'
                     else:
-                        substep = " - " + str(b) + "."
+                        substep = " – " + s + "."
                         Instructions = Instructions + substep + '\n'
-                else:
-                    substep = " – " + s + "."
-                    Instructions = Instructions + substep + '\n'
 
-        listOfInstructions = listOfInstructions + Instructions + '\n'
-        n += 1
-    return listOfInstructions
+            listOfInstructions = listOfInstructions + Instructions + '\n'
+            n += 1
+        return listOfInstructions
+    except (KeyError, IndexError):
+        return 3
 
 
 # this is a test
@@ -348,9 +358,13 @@ def getRecipeNutrition(id):
     # Get request to the API. Print nutrition results
     r = requests.get(endpoint, params=payload)
     results = r.json()
-    calories = "calories:" + str(results["calories"]) + '\n'
-    carbs = "carbs:" + str(results["carbs"]) + '\n'
-    fat = "fat:" + str(results["fat"]) + '\n'
-    protein = "protein:" + str(results["protein"]) + '\n'
-    nutrition = calories + carbs + fat + protein
-    return nutrition
+
+    try:
+        calories = "calories:" + str(results["calories"]) + '\n'
+        carbs = "carbs:" + str(results["carbs"]) + '\n'
+        fat = "fat:" + str(results["fat"]) + '\n'
+        protein = "protein:" + str(results["protein"]) + '\n'
+        nutrition = calories + carbs + fat + protein
+        return nutrition
+    except (IndexError, KeyError):
+        return 3

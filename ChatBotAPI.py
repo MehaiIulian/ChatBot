@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify
 from main import getRecipeByIngredients, chooseRecipe, chat
 
 import time
+
 app = Flask(__name__)
 
 
@@ -12,7 +13,7 @@ def home():
     return "API for delivering recipes to the user! Running now ..."
 
 
-#http://127.0.0.1:5000/getRecipeByIngredients?ingr=chicken&nr=5
+# http://127.0.0.1:5000/getRecipeByIngredients?ingr=chicken&nr=5
 @app.route('/getRecipeByIngredients', methods=['GET', 'POST'])
 def getRecipeByIngredientsBot():
     ingredients = request.args.get('ingr');
@@ -21,7 +22,8 @@ def getRecipeByIngredientsBot():
     print(getRecipeByIngredients(ingredients, number))
     return jsonify(chatBotReply=getRecipeByIngredients(ingredients, number))
 
-#http://127.0.0.1:5000/chooseRecipe?nr=5
+
+# http://127.0.0.1:5000/chooseRecipe?nr=5
 @app.route('/chooseRecipe', methods=['GET', 'POST'])
 def chooseRecipeBot():
     nr = request.args.get('nr')
@@ -32,7 +34,7 @@ def chooseRecipeBot():
     return jsonify(chatBotReply=chooseRecipe(number))
 
 
-#http://127.0.0.1:5000/chat?msg=ingredients
+# http://127.0.0.1:5000/chat?msg=ingredients
 @app.route('/chat', methods=['GET', 'POST'])
 def chatBot():
     message = request.args.get('msg')
