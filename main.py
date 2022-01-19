@@ -128,7 +128,7 @@ def bag_of_words(s, words):
     return numpy.array(bag)
 
 def clearRecipes():
-     currentRecipeID[0] = 0
+     currentRecipeID.clear()
      recipeID.clear()
      recipeTitle.clear()
 
@@ -186,9 +186,9 @@ def getRecipeByIngredients(ingr, nr):
 def chooseRecipe(number):
 
     i = number - 1
-    currentRecipeID[0] = 0
-    print(recipeID[i])
-    currentRecipeID[0] = recipeID[i]
+    currentRecipeID.clear()
+    currentRecipeID.append(0)
+    currentRecipeID.append(recipeID[i])
     print(currentRecipeID)
     userChoice = "Recipe bot: You chose \n" + recipeTitle[i] + "\n" + " good choice!\n "
     return userChoice
@@ -213,10 +213,10 @@ def chat(msg):
 
         # Link chatbot (intent of user) to respective function in program
         if responses == ["These are the ingredients:"]:
-            return getRecipeIngredients(str(currentRecipeID[0]))
+            return getRecipeIngredients(str(currentRecipeID[1]))
 
         elif responses == ["These are the instructions:"]:
-            return getRecipeInstructions(str(currentRecipeID[0]))
+            return getRecipeInstructions(str(currentRecipeID[1]))
 
         elif responses == ["Welcome (back) to the overview:"]:
             overviewMessage = ""
@@ -237,7 +237,7 @@ def chat(msg):
             return 2
 
         elif responses == ["See the recipe's nutrition information:"]:
-            return getRecipeNutrition(str(currentRecipeID[0]))
+            return getRecipeNutrition(str(currentRecipeID[1]))
     else:
         return "Recipe bot: I am not sure what you want to do. Can you rephrase your question?"
 
