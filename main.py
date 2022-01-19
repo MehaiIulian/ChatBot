@@ -190,6 +190,8 @@ def getRecipeByIngredients(ingr, nr):
 def chooseRecipe(number):
     global currentRecipeID
     currentRecipeID = -1
+    print(number - 1)
+    print(recipeID[number - 1])
     currentRecipeID = recipeID[number - 1]
     userChoice = "Recipe bot: You chose \n" + recipeTitle[number - 1] + "\n" + " good choice!\n "
 
