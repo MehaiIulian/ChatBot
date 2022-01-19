@@ -171,7 +171,7 @@ def getRecipeByIngredients(ingr, nr):
                 recipeID.append(results[n]["id"])
                 n += 1
         except KeyError:
-            return 1
+            return 0 #Internal server error
 
         if len(recipeTitle) == 0:
             return 0
