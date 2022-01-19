@@ -218,13 +218,14 @@ def chat(msg):
             return getRecipeInstructions(str(currentRecipeID[0]))
 
         elif responses == ["Welcome (back) to the overview:"]:
+            overviewMessage = ""
             string = "Welcome (back) to the overview:"
             n = 0
             stringOfRecipleTitle = ""
             for i in recipeTitle:
                 n += 1
                 stringOfRecipleTitle = stringOfRecipleTitle + str(n) + "." + str(i) + '\n'
-            overviewMessage = string + "\n" + stringOfRecipleTitle
+            overviewMessage = string + '\n' + stringOfRecipleTitle
             return overviewMessage
 
         elif responses == ["Here, you can start again with new ingredients:"]:
