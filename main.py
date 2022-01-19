@@ -17,7 +17,7 @@ nltk.download('punkt')
 stemmer = LancasterStemmer()
 
 # Define api key for spoonacular database
-api_key = "bb238c76bf8e4034829176f6fbd152ca"
+api_key = "66574f61969e49d5b6c7d29f644b41d5"
 
 # Create empty lists to store the current recipe id, the recipe ids of all recipes retrieved as well as their titles
 
@@ -164,14 +164,11 @@ def getRecipeByIngredients(ingr, nr):
         r = requests.get(endpoint, params=payload)
         results = r.json()
 
-        try:
-            n = 0
-            for i in results:
-                recipeTitle.append(results[n]["title"])
-                recipeID.append(results[n]["id"])
-                n += 1
-        except KeyError:
-            return 0 #Internal server errorr
+        n = 0
+        for i in results:
+            recipeTitle.append(results[n]["title"])
+            recipeID.append(results[n]["id"])
+            n += 1
 
         if len(recipeTitle) == 0:
             return 0
