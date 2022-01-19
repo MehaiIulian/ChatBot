@@ -166,9 +166,13 @@ def getRecipeByIngredients(ingr, nr):
 
         n = 0
         for i in results:
-            recipeTitle.append(results[n]["title"])
-            recipeID.append(results[n]["id"])
-            n += 1
+            try:
+                recipeTitle.append(results[n]["title"])
+                recipeID.append(results[n]["id"])
+                n += 1
+            except:
+                return 0
+
 
         if len(recipeTitle) == 0:
             return 0
