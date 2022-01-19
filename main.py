@@ -192,7 +192,10 @@ def chooseRecipe(number):
     currentRecipeID = -1
     print(number - 1)
     print(recipeID[number - 1])
-    currentRecipeID = recipeID[number - 1]
+    try:
+        currentRecipeID = recipeID[number - 1]
+    except IndexError:
+        chooseRecipe(number)
     userChoice = "Recipe bot: You chose \n" + recipeTitle[number - 1] + "\n" + " good choice!\n "
 
     return userChoice
@@ -224,14 +227,9 @@ def chat(msg):
             return getRecipeInstructions(str(currentRecipeID))
 
         elif responses == ["Welcome (back) to the overview:"]:
-            overviewMessage = ""
             string = "Welcome (back) to the overview:"
-            n = 0
-            stringOfRecipleTitle = ""
-            for i in recipeTitle:
-                n += 1
-                stringOfRecipleTitle = stringOfRecipleTitle + str(n) + "." + str(i) + '\n'
-            overviewMessage = string + '\n' + stringOfRecipleTitle
+            listToStr = ' '.join([str(elem) for elem in recipeTitle])
+            overviewMessage = string + '\n' + listToStr
             return overviewMessage
 
         elif responses == ["Here, you can start again with new ingredients:"]:
