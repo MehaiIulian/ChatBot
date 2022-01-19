@@ -19,7 +19,7 @@ def getRecipeByIngredientsBot():
     number = int(request.args.get('nr'))
     time.sleep(2)
     print(getRecipeByIngredients(ingredients, number))
-    return jsonify(chatBotReply=getRecipeByIngredients(ingredients, number));
+    return jsonify(chatBotReply=getRecipeByIngredients(ingredients, number))
 
 #http://127.0.0.1:5000/F
 @app.route('/chooseRecipe', methods=['GET', 'POST'])

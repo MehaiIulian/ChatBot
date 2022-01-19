@@ -127,10 +127,15 @@ def bag_of_words(s, words):
 
     return numpy.array(bag)
 
+def clearRecipes():
+     currentRecipeID.clear()
+     recipeID.clear()
+     recipeTitle.clear()
 
 # Second step: code that will ask the user for a sentence and then spit out a response, in case user did not quit
 # Define main function: Retrieving recipes based on ingredients (input)
 def getRecipeByIngredients(ingr, nr):
+    clearRecipes()
 
     ingredients = ingr
     numberOfRecipes = nr
@@ -160,7 +165,11 @@ def getRecipeByIngredients(ingr, nr):
             recipeID.append(results[n]["id"])
             n += 1
 
-        if numberOfRecipes >= len(recipeTitle) >= 0:
+        if len(recipeTitle) == 0:
+            return 0
+            #there are no recipes for your Ingredients
+
+        else:
             n = 0
             stringOfRecipleTitle = ""
             for i in recipeTitle:
@@ -168,10 +177,6 @@ def getRecipeByIngredients(ingr, nr):
                 stringOfRecipleTitle = stringOfRecipleTitle + str(n) + "." + str(i) + '\n'
             return stringOfRecipleTitle
 
-        else:
-            return 0
-            # "Recipe bot: There are no recipes available for the entered ingredients or you have not entered valid ingredients. Please start again..."
-            # start the call again from the beggining
     else:
         return 1
         # "Recipe bot: You have not entered a number between 1 or 15. Please start again..."
@@ -223,9 +228,7 @@ def chat(msg):
             return overviewMessage
 
         elif responses == ["Here, you can start again with new ingredients:"]:
-            currentRecipeID.clear()
-            recipeID.clear()
-            recipeTitle.clear()
+            clearRecipes()
             return 1
 
         elif responses == ["You are welcome!"]:
