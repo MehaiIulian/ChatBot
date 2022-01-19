@@ -195,7 +195,7 @@ def chooseRecipe(number):
         print(recipeID[number - 1])
         currentRecipeID = recipeID[number - 1]
     except IndexError:
-        chooseRecipe(number)
+        pass
     userChoice = "Recipe bot: You chose \n" + recipeTitle[number - 1] + "\n" + " good choice!\n "
 
     return userChoice
