@@ -128,7 +128,7 @@ def bag_of_words(s, words):
     return numpy.array(bag)
 
 def clearRecipes():
-     currentRecipeID.clear()
+     currentRecipeID[0] = 0
      recipeID.clear()
      recipeTitle.clear()
 
@@ -186,9 +186,9 @@ def getRecipeByIngredients(ingr, nr):
 def chooseRecipe(number):
 
     i = number - 1
-    currentRecipeID.clear()
+    currentRecipeID[0] = 0
     print(recipeID[i])
-    currentRecipeID[0] = (recipeID[i])
+    currentRecipeID[0] = recipeID[i]
     print(currentRecipeID)
     userChoice = "Recipe bot: You chose \n" + recipeTitle[i] + "\n" + " good choice!\n "
     return userChoice
