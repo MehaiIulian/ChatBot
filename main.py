@@ -184,14 +184,13 @@ def getRecipeByIngredients(ingr, nr):
 
 # Create function to choose one of the retrieved recipes
 def chooseRecipe(number):
-    try:
-        choiceOfRecipe = number
-        currentRecipeID.clear()
-        currentRecipeID.append(recipeID[choiceOfRecipe - 1])
-        userChoice = "Recipe bot: You chose \n" + recipeTitle[choiceOfRecipe - 1] + "\n" + " good choice!\n "
-        return userChoice
-    except IndexError:
-        chooseRecipe(number)
+
+    i = number - 1
+    currentRecipeID.clear()
+    currentRecipeID.append(recipeID[i])
+    userChoice = "Recipe bot: You chose \n" + recipeTitle[i] + "\n" + " good choice!\n "
+    return userChoice
+
 
 
 # Second step: code that will ask the user for a sentence and then spit out a response, in case user did not quit
