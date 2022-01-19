@@ -140,6 +140,9 @@ def clearRecipes():
 
 stringOfRecipleTitle = ""
 
+def getVegetarianRecipes():
+    return 1
+
 
 # Second step: code that will ask the user for a sentence and then spit out a response, in case user did not quit
 # Define main function: Retrieving recipes based on ingredients (input)

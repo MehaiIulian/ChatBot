@@ -12,6 +12,13 @@ app = Flask(__name__)
 def home():
     return "API for delivering recipes to the user! Running now ..."
 
+# http://127.0.0.1:5000/getVegetarianRecipes
+@app.route('/getRecipeByIngredients', methods=['GET', 'POST'])
+def getVegetarianRecipes():
+    time.sleep(2)
+    print(getVegetarianRecipes())
+    return jsonify(chatBotReply=getVegetarianRecipes())
+
 
 # http://127.0.0.1:5000/getRecipeByIngredients?ingr=chicken&nr=5
 @app.route('/getRecipeByIngredients', methods=['GET', 'POST'])
