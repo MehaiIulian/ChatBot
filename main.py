@@ -20,9 +20,7 @@ stemmer = LancasterStemmer()
 api_key = "bb238c76bf8e4034829176f6fbd152ca"
 
 # Create empty lists to store the current recipe id, the recipe ids of all recipes retrieved as well as their titles
-currentRecipeID = []
-recipeID = []
-recipeTitle = []
+
 
 with open("intents.json") as file:
     data = json.load(file)
@@ -127,10 +125,17 @@ def bag_of_words(s, words):
 
     return numpy.array(bag)
 
+currentRecipeID = -1
+recipeID = []
+recipeTitle = []
+
 def clearRecipes():
-     currentRecipeID.clear()
-     recipeID.clear()
-     recipeTitle.clear()
+
+    global currentRecipeID
+    currentRecipeID = -1
+    recipeID.clear()
+    recipeTitle.clear()
+
 
 # Second step: code that will ask the user for a sentence and then spit out a response, in case user did not quit
 # Define main function: Retrieving recipes based on ingredients (input)
@@ -141,7 +146,6 @@ def getRecipeByIngredients(ingr, nr):
     numberOfRecipes = nr
 
     ingredients = ",".join(ingredients.split(" "))
-
 
     if 1 <= numberOfRecipes <= 15:
 
@@ -167,7 +171,7 @@ def getRecipeByIngredients(ingr, nr):
 
         if len(recipeTitle) == 0:
             return 0
-            #there are no recipes for your Ingredients
+            # there are no recipes for your Ingredients
 
         else:
             n = 0
@@ -179,24 +183,22 @@ def getRecipeByIngredients(ingr, nr):
 
     else:
         return 1
-        # "Recipe bot: You have not entered a number between 1 or 15. Please start again..."
+        # "Recipe bot: You have not entered a number between 1 or 15. Please start again...
 
 
 # Create function to choose one of the retrieved recipes
 def chooseRecipe(number):
+    global currentRecipeID
+    currentRecipeID = -1
+    currentRecipeID = recipeID[number - 1]
+    userChoice = "Recipe bot: You chose \n" + recipeTitle[number - 1] + "\n" + " good choice!\n "
 
-    i = number - 1
-    currentRecipeID.clear()
-    currentRecipeID.append(0)
-    currentRecipeID.append(recipeID[i])
-    print(currentRecipeID)
-    userChoice = "Recipe bot: You chose \n" + recipeTitle[i] + "\n" + " good choice!\n "
     return userChoice
-
 
 
 # Second step: code that will ask the user for a sentence and then spit out a response, in case user did not quit
 def chat(msg):
+    global currentRecipeID
     message = str(msg)
     if message.lower() == "quit":
         return "quit"
@@ -213,10 +215,10 @@ def chat(msg):
 
         # Link chatbot (intent of user) to respective function in program
         if responses == ["These are the ingredients:"]:
-            return getRecipeIngredients(str(currentRecipeID[1]))
+            return getRecipeIngredients(str(currentRecipeID))
 
         elif responses == ["These are the instructions:"]:
-            return getRecipeInstructions(str(currentRecipeID[1]))
+            return getRecipeInstructions(str(currentRecipeID))
 
         elif responses == ["Welcome (back) to the overview:"]:
             overviewMessage = ""
@@ -237,7 +239,7 @@ def chat(msg):
             return 2
 
         elif responses == ["See the recipe's nutrition information:"]:
-            return getRecipeNutrition(str(currentRecipeID[1]))
+            return getRecipeNutrition(str(currentRecipeID))
     else:
         return "Recipe bot: I am not sure what you want to do. Can you rephrase your question?"
 
@@ -245,6 +247,7 @@ def chat(msg):
 # Create function to retrieve the ingredients of a specific recipe
 def getRecipeIngredients(id):
     # Payload sent to the API
+    print(id)
     payload = {
         'id': id
     }
@@ -291,7 +294,7 @@ def getRecipeInstructions(id):
     r = requests.get(endpoint, params=payload)
     results = r.json()
 
-    n= 0
+    n = 0
     listOfInstructions = ""
     # State the name of the steps
     for step in results:

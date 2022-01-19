@@ -21,7 +21,7 @@ def getRecipeByIngredientsBot():
     print(getRecipeByIngredients(ingredients, number))
     return jsonify(chatBotReply=getRecipeByIngredients(ingredients, number))
 
-#http://127.0.0.1:5000/F
+#http://127.0.0.1:5000/chooseRecipe?nr=5
 @app.route('/chooseRecipe', methods=['GET', 'POST'])
 def chooseRecipeBot():
     nr = request.args.get('nr')
@@ -32,7 +32,7 @@ def chooseRecipeBot():
     return jsonify(chatBotReply=chooseRecipe(number))
 
 
-#http://127.0.0.1:5000/chat?msg=cooking steps
+#http://127.0.0.1:5000/chat?msg=ingredients
 @app.route('/chat', methods=['GET', 'POST'])
 def chatBot():
     message = request.args.get('msg')
