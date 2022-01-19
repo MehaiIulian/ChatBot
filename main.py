@@ -163,11 +163,15 @@ def getRecipeByIngredients(ingr, nr):
         # GET request to the API. Save titles and IDs of recipes in lists and print recipe titles
         r = requests.get(endpoint, params=payload)
         results = r.json()
-        n = 0
-        for i in results:
-            recipeTitle.append(results[n]["title"])
-            recipeID.append(results[n]["id"])
-            n += 1
+
+        try:
+            n = 0
+            for i in results:
+                recipeTitle.append(results[n]["title"])
+                recipeID.append(results[n]["id"])
+                n += 1
+        except KeyError:
+            return 1
 
         if len(recipeTitle) == 0:
             return 0
@@ -195,7 +199,7 @@ def chooseRecipe(number):
         print(recipeID[number - 1])
         currentRecipeID = recipeID[number - 1]
     except IndexError:
-        pass
+        return 1
     userChoice = "Recipe bot: You chose \n" + recipeTitle[number - 1] + "\n" + " good choice!\n "
 
     return userChoice
