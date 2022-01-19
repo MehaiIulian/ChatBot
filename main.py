@@ -187,8 +187,9 @@ def chooseRecipe(number):
 
     i = number - 1
     currentRecipeID.clear()
-    print(currentRecipeID.append(recipeID[i]))
-
+    print(recipeID[i])
+    currentRecipeID[0] = (recipeID[i])
+    print(currentRecipeID)
     userChoice = "Recipe bot: You chose \n" + recipeTitle[i] + "\n" + " good choice!\n "
     return userChoice
 
