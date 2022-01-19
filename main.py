@@ -230,6 +230,7 @@ def chat(msg):
         elif responses == ["Welcome (back) to the overview:"]:
             string = "Welcome (back) to the overview:"
             listToStr = ' '.join([str(elem) for elem in recipeTitle])
+            print(listToStr)
             overviewMessage = string + '\n' + listToStr
             return overviewMessage
 
