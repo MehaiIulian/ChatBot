@@ -190,9 +190,9 @@ def getRecipeByIngredients(ingr, nr):
 def chooseRecipe(number):
     global currentRecipeID
     currentRecipeID = -1
-    print(number - 1)
-    print(recipeID[number - 1])
+
     try:
+        print(recipeID[number - 1])
         currentRecipeID = recipeID[number - 1]
     except IndexError:
         chooseRecipe(number)
