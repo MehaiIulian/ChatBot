@@ -136,7 +136,7 @@ def clearRecipes():
     recipeID.clear()
     recipeTitle.clear()
 
-
+stringOfRecipleTitle = ""
 # Second step: code that will ask the user for a sentence and then spit out a response, in case user did not quit
 # Define main function: Retrieving recipes based on ingredients (input)
 def getRecipeByIngredients(ingr, nr):
@@ -176,6 +176,7 @@ def getRecipeByIngredients(ingr, nr):
 
         else:
             n = 0
+            global stringOfRecipleTitle
             stringOfRecipleTitle = ""
             for i in recipeTitle:
                 n += 1
@@ -206,6 +207,7 @@ def chooseRecipe(number):
 # Second step: code that will ask the user for a sentence and then spit out a response, in case user did not quit
 def chat(msg):
     global currentRecipeID
+    global stringOfRecipleTitle
     message = str(msg)
     if message.lower() == "quit":
         return "quit"
@@ -229,10 +231,7 @@ def chat(msg):
 
         elif responses == ["Welcome (back) to the overview:"]:
             string = "Welcome (back) to the overview:"
-            listToStr = ' '.join([str(elem) for elem in recipeTitle])
-            print(listToStr)
-            overviewMessage = string + '\n' + listToStr
-            return overviewMessage
+            return string + '\n' + stringOfRecipleTitle
 
         elif responses == ["Here, you can start again with new ingredients:"]:
             clearRecipes()
