@@ -148,7 +148,7 @@ def getVegetarianRecipes():
 # Define main function: Retrieving recipes based on ingredients (input)
 def getRecipeByIngredients(ingr, nr):
     clearRecipes()
-
+    global stringOfRecipleTitle
     ingredients = ingr
     numberOfRecipes = nr
 
@@ -178,15 +178,17 @@ def getRecipeByIngredients(ingr, nr):
                 recipeID.append(results[n]["id"])
                 n += 1
             except (IndexError, KeyError):
+                global stringOfRecipleTitle
+                stringOfRecipleTitle = ""
                 return 0
 
         if len(recipeTitle) == 0:
+            stringOfRecipleTitle = ""
             return 0
             # there are no recipes for your Ingredients
 
         else:
             n = 0
-            global stringOfRecipleTitle
             stringOfRecipleTitle = ""
             for i in recipeTitle:
                 n += 1
@@ -202,15 +204,15 @@ def getRecipeByIngredients(ingr, nr):
 def chooseRecipe(number):
     global currentRecipeID
     currentRecipeID = -1
-
+    global stringOfRecipleTitle
     try:
         print(recipeID[number - 1])
         currentRecipeID = recipeID[number - 1]
+        userChoice = "Recipe bot: You chose \n" + recipeTitle[number - 1] + "\n" + " good choice!\n "
+        return userChoice
     except (IndexError, KeyError):
+        stringOfRecipleTitle = ""
         return 1
-    userChoice = "Recipe bot: You chose \n" + recipeTitle[number - 1] + "\n" + " good choice!\n "
-
-    return userChoice
 
 
 # Second step: code that will ask the user for a sentence and then spit out a response, in case user did not quit
@@ -244,6 +246,7 @@ def chat(msg):
 
         elif responses == ["Here, you can start again with new ingredients:"]:
             clearRecipes()
+            stringOfRecipleTitle = ""
             return 1
 
         elif responses == ["You are welcome!"]:

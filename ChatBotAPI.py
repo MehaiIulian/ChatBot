@@ -13,7 +13,7 @@ def home():
     return "API for delivering recipes to the user! Running now ..."
 
 # http://127.0.0.1:5000/getVegetarianRecipes
-@app.route('/getRecipeByIngredients', methods=['GET', 'POST'])
+@app.route('/getVegetarianRecipes', methods=['GET', 'POST'])
 def getVegetarianRecipes():
     time.sleep(2)
     print(getVegetarianRecipes())
