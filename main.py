@@ -148,7 +148,7 @@ def getVegetarianRecipes():
 # Define main function: Retrieving recipes based on ingredients (input)
 def getRecipeByIngredients(ingr, nr):
     clearRecipes()
-
+    
     ingredients = ingr
     numberOfRecipes = nr
 
@@ -244,6 +244,7 @@ def chat(msg):
 
         elif responses == ["Here, you can start again with new ingredients:"]:
             clearRecipes()
+            stringOfRecipleTitle = ""
             return 1
 
         elif responses == ["You are welcome!"]:
