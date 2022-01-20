@@ -148,7 +148,7 @@ def getVegetarianRecipes():
 # Define main function: Retrieving recipes based on ingredients (input)
 def getRecipeByIngredients(ingr, nr):
     clearRecipes()
-    
+    global stringOfRecipleTitle
     ingredients = ingr
     numberOfRecipes = nr
 
@@ -183,14 +183,12 @@ def getRecipeByIngredients(ingr, nr):
                 return 0
 
         if len(recipeTitle) == 0:
-            global stringOfRecipleTitle
             stringOfRecipleTitle = ""
             return 0
             # there are no recipes for your Ingredients
 
         else:
             n = 0
-            global stringOfRecipleTitle
             stringOfRecipleTitle = ""
             for i in recipeTitle:
                 n += 1
@@ -206,14 +204,13 @@ def getRecipeByIngredients(ingr, nr):
 def chooseRecipe(number):
     global currentRecipeID
     currentRecipeID = -1
-
+    global stringOfRecipleTitle
     try:
         print(recipeID[number - 1])
         currentRecipeID = recipeID[number - 1]
         userChoice = "Recipe bot: You chose \n" + recipeTitle[number - 1] + "\n" + " good choice!\n "
         return userChoice
     except (IndexError, KeyError):
-        global stringOfRecipleTitle
         stringOfRecipleTitle = ""
         return 1
 
