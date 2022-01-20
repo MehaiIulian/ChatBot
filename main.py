@@ -178,9 +178,13 @@ def getRecipeByIngredients(ingr, nr):
                 recipeID.append(results[n]["id"])
                 n += 1
             except (IndexError, KeyError):
+                global stringOfRecipleTitle
+                stringOfRecipleTitle = ""
                 return 0
 
         if len(recipeTitle) == 0:
+            global stringOfRecipleTitle
+            stringOfRecipleTitle = ""
             return 0
             # there are no recipes for your Ingredients
 
@@ -206,11 +210,12 @@ def chooseRecipe(number):
     try:
         print(recipeID[number - 1])
         currentRecipeID = recipeID[number - 1]
+        userChoice = "Recipe bot: You chose \n" + recipeTitle[number - 1] + "\n" + " good choice!\n "
+        return userChoice
     except (IndexError, KeyError):
+        global stringOfRecipleTitle
+        stringOfRecipleTitle = ""
         return 1
-    userChoice = "Recipe bot: You chose \n" + recipeTitle[number - 1] + "\n" + " good choice!\n "
-
-    return userChoice
 
 
 # Second step: code that will ask the user for a sentence and then spit out a response, in case user did not quit
