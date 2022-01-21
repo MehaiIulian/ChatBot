@@ -323,7 +323,6 @@ def chat_with_bot(message):
                 except (KeyError, IndexError):
                     return 0
 
-
             except ConnectionError:
                 return 10  # Spooncular api error
 
@@ -341,10 +340,14 @@ def chat_with_bot(message):
                 json_result = rez.json()
 
                 try:
-                    calories = "calories:" + str(json_result["calories"]) + '\n'
-                    carbs = "carbs:" + str(json_result["carbs"]) + '\n'
-                    fat = "fat:" + str(json_result["fat"]) + '\n'
-                    protein = "protein:" + str(json_result["protein"]) + '\n'
+                    calories_r = str(json_result["calories"])
+                    calories = "calories:" + calories_r + '\n'
+                    carbs_r = str(json_result["carbs"])
+                    carbs = "carbs:" + carbs_r + '\n'
+                    fat_r = str(json_result["fat"])
+                    fat = "fat:" + fat_r + '\n'
+                    protein_r = str(json_result["protein"])
+                    protein = "protein:" + protein_r + '\n'
                     nutrition = calories + carbs + fat + protein
                     return nutrition
                 except (IndexError, KeyError):
