@@ -116,3 +116,8 @@ def bag_of_words(s, words):
                 bag[i] = 1
 
     return numpy.array(bag)
+
+#for Documentation
+#https://www.youtube.com/watch?v=wypVcNIH6D4 Part 1
+#https://www.youtube.com/watch?v=ON5pGUJDNow Part 2
+#https://www.youtube.com/watch?v=PzzHOvpqDYs Part 3
