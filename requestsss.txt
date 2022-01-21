@@ -1,0 +1,21 @@
+http://127.0.0.1:5000/get-vegetarian-recipes
+http://127.0.0.1:5000/get-recipe-by-user-ingredients?ingredients=salami cheese&number=10
+http://127.0.0.1:5000/pick-recipe-number?number=3
+http://127.0.0.1:5000/chat-with-bot?message=hi
+http://127.0.0.1:5000/chat-with-bot?message=ingredients
+http://127.0.0.1:5000/chat-with-bot?message=cookings steps
+http://127.0.0.1:5000/chat-with-bot?message=nutrition
+http://127.0.0.1:5000/chat-with-bot?message=tools
+http://127.0.0.1:5000/chat-with-bot?message=go back
+http://127.0.0.1:5000/chat-with-bot?message=startover
+
+https://masterchefbot.herokuapp.com/get-vegetarian-recipes
+https://masterchefbot.herokuapp.com/get-recipe-by-user-ingredients?ingredients=salami cheese&number=10
+https://masterchefbot.herokuapp.com/pick-recipe-number?number=3
+https://masterchefbot.herokuapp.com/chat-with-bot?message=hi
+https://masterchefbot.herokuapp.com/chat-with-bot?message=ingredients
+https://masterchefbot.herokuapp.com/chat-with-bot?message=cookings steps
+https://masterchefbot.herokuapp.com/chat-with-bot?message=nutrition
+https://masterchefbot.herokuapp.com/chat-with-bot?message=tools
+https://masterchefbot.herokuapp.com/chat-with-bot?message=go back
+https://masterchefbot.herokuapp.com/chat-with-bot?message=startover

@@ -116,9 +116,3 @@ def bag_of_words(s, words):
                 bag[i] = 1
 
     return numpy.array(bag)
-
-
-
-
-
-
