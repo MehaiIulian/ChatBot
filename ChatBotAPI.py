@@ -224,10 +224,7 @@ def chat_with_bot(message):
         response = choice(responses)
         option = response_from_bot(response)
 
-        if option == 1:
-            return response
-
-        elif option == 2:
+        if option == 1 or option == 2 or option == 7:
             return response
 
         elif option == 3:
