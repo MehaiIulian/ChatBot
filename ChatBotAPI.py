@@ -54,6 +54,7 @@ def get_vegetarian_recipes():
     global string_of_recipes
     string_of_recipes = ""
     clear_last_data_of_recipes()
+    print(string_of_recipes)
 
     print(string_of_recipes)
     pd = {
