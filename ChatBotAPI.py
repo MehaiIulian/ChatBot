@@ -395,7 +395,7 @@ def chat_with_bot(message):
 
         elif option == 9:
             string = "Welcome (back) to the overview:"
-
+            string_of_recipes = ""
             i = 0
             for j in title_of_recipes:
                 i = i + 1
