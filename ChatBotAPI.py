@@ -395,6 +395,8 @@ def chat_with_bot(message):
         elif option == 9:
             string = "Welcome (back) to the overview:"
             overview_message = string + '\n' + string_of_recipes
+            print(string_of_recipes)
+            print(overview_message)
             return overview_message
         else:
             return "I am not sure what you want to do. Can you rephrase your question?"
