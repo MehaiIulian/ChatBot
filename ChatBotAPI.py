@@ -47,7 +47,6 @@ def clear_last_data_of_recipes():
 @app.route('/get-vegetarian-recipes', methods=['GET', 'POST'])
 def send_vegetarian_recipes():
     time.sleep(2)
-    print(get_vegetarian_recipes())
     return jsonify(chatBotReply=get_vegetarian_recipes())
 
 
@@ -99,7 +98,6 @@ def send_recipes_with_ingredients():
     ingredients = request.args.get('ingredients')
     number = int(request.args.get('number'))
     time.sleep(2)
-    print(get_recipes_with_ingredients(ingredients, number))
     return jsonify(chatBotReply=get_recipes_with_ingredients(ingredients, number))
 
 
