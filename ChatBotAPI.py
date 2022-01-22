@@ -210,6 +210,7 @@ def response_from_bot(response):
 
 
 def chat_with_bot(message):
+    global string_of_recipes
     message = str(message)
     if message.lower() == "quit":
         return "quit"
@@ -394,6 +395,12 @@ def chat_with_bot(message):
 
         elif option == 9:
             string = "Welcome (back) to the overview:"
+
+            i = 0
+            for j in title_of_recipes:
+                i = i + 1
+                string_of_recipes = string_of_recipes + str(i) + "." + str(j) + '\n'
+
             overview_message = string + '\n' + string_of_recipes
             print(string_of_recipes)
             print(overview_message)
