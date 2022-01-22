@@ -51,8 +51,6 @@ def send_vegetarian_recipes():
 
 
 def get_vegetarian_recipes():
-
-
     global string_of_recipes
     string_of_recipes = ""
     clear_last_data_of_recipes()
@@ -161,6 +159,9 @@ def get_recipes_with_ingredients(ingredients, number):
 @app.route('/pick-recipe-number', methods=['GET', 'POST'])
 def send_choice_of_user():
     user_choice = request.args.get('number')
+    if user_choice.lower() == "exit" or user_choice.lower() == "quit":
+        return jsonify(chatBotReply=-1)
+
     user_choice = int(user_choice)
     time.sleep(2)
 
@@ -184,6 +185,9 @@ def send_choice_of_user():
 @app.route('/chat-with-bot', methods=['GET', 'POST'])
 def send_response_from_bot():
     message = request.args.get('message')
+    if message.lower() == "exit" or message.lower() == "quit":
+        return jsonify(chatBotReply=-1)
+
     time.sleep(2)
     return jsonify(chatBotReply=chat_with_bot(message))
 
@@ -212,8 +216,7 @@ def response_from_bot(response):
 def chat_with_bot(message):
     global string_of_recipes
     message = str(message)
-    if message.lower() == "quit":
-        return "quit"
+
     res = model.predict([bag_of_words(message, words)])[0]
     results_index = numpy.argmax(res)
     tag = labels[results_index]
