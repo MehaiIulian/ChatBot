@@ -52,10 +52,13 @@ def send_vegetarian_recipes():
 
 
 def get_vegetarian_recipes():
+    print(string_of_recipes)
+
     global string_of_recipes
     string_of_recipes = ""
     clear_last_data_of_recipes()
 
+    print(string_of_recipes)
     pd = {
         'number': 15,
         'tags': "vegetarian",
@@ -79,6 +82,8 @@ def get_vegetarian_recipes():
             for j in title_of_recipes:
                 i = i + 1
                 string_of_recipes = string_of_recipes + str(i) + "." + str(j) + '\n'
+
+            print(string_of_recipes)
             return string_of_recipes
 
         except (IndexError, KeyError):
@@ -391,7 +396,8 @@ def chat_with_bot(message):
 
         elif option == 9:
             string = "Welcome (back) to the overview:"
-            return string + '\n' + string_of_recipes
+            overview_message = string + '\n' + string_of_recipes
+            return overview_message
         else:
             return "I am not sure what you want to do. Can you rephrase your question?"
 
