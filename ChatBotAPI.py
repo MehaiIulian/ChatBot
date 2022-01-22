@@ -52,7 +52,7 @@ def send_vegetarian_recipes():
 
 
 def get_vegetarian_recipes():
-    print(string_of_recipes)
+
 
     global string_of_recipes
     string_of_recipes = ""
