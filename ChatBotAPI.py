@@ -214,6 +214,21 @@ def response_from_bot(response):
         return 9
 
 
+def get_specified_info_for_recipe(specific_url):
+    pd = {
+        'id': str(id_of_choose_recipe)
+    }
+
+    id_r = str(id_of_choose_recipe)
+
+    get_from_url = base_url + id_r + '/' + specific_url + api_key
+
+    rez = req.get(get_from_url, pd)
+    json_result = rez.json()
+
+    return json_result
+
+
 def chat_with_bot(message):
     global string_of_recipes
     message = str(message)
@@ -237,18 +252,9 @@ def chat_with_bot(message):
 
         elif option == 3:
 
-            pd = {
-                'id': str(id_of_choose_recipe)
-            }
-
-            id = str(id_of_choose_recipe)
-
-            get_from_url = base_url + id + '/' + url_get_ingredients + api_key
-
             try:
-                rez = req.get(get_from_url, pd)
-                json_result = rez.json()
 
+                json_result = get_specified_info_for_recipe(url_get_ingredients)
                 try:
                     ingredients_name = []
                     ingredients_weight = []
@@ -266,7 +272,7 @@ def chat_with_bot(message):
 
                     i = 0
                     recipe_ingredients = ""
-                    for ingredient in range(len(ingredients_name)):
+                    for j in range(len(ingredients_name)):
                         recipe_ingredients = recipe_ingredients + str(ingredients_weight[i]) + " "
                         recipe_ingredients = recipe_ingredients + " " + str(ingredients_unit[i]) + " "
                         recipe_ingredients = recipe_ingredients + " " + str(ingredients_name[i]) + '\n'
@@ -281,17 +287,10 @@ def chat_with_bot(message):
 
 
         elif option == 4:
-            pd = {
-                'id': str(id_of_choose_recipe)
-            }
-
-            id = str(id_of_choose_recipe)
-
-            get_from_url = base_url + id + '/' + url_get_instructions + api_key
 
             try:
-                rez = req.get(get_from_url, pd)
-                json_result = rez.json()
+
+                json_result = get_specified_info_for_recipe(url_get_instructions)
 
                 try:
                     i = 0
@@ -299,9 +298,8 @@ def chat_with_bot(message):
 
                     for j in json_result:
                         instructions = ""
-                        step = "Steps " + ":" + str(json_result[i]["name"])
-                        list_of_instructions = list_of_instructions + step + '\n'
-
+                        step = str(json_result[i]["name"])
+                        list_of_instructions = "too cook it ..." + list_of_instructions + step + '\n'
                         for k in json_result[i]['steps']:
                             steps = k['step']
                             instruction_to = steps.split(".")
@@ -309,18 +307,11 @@ def chat_with_bot(message):
                             for l in instruction_to:
                                 if not l:
                                     continue
-                                if l[0] == " ":
-                                    a = l.replace(" ", "", 1)
-                                    if a[0] == " ":
-                                        b = a.replace(" ", "", 1)
-                                        s_step = " - " + str(b) + "."
-                                        instructions = instructions + s_step + '\n'
-                                    else:
-                                        s_step = " - " + str(a) + "."
-                                        instructions = instructions + s_step + '\n'
-                                else:
-                                    s_step = " – " + l + "."
-                                    instructions = instructions + s_step + '\n'
+
+                                l = l.strip(' ')
+
+                                s_step = " > " + l + "."
+                                instructions = instructions + s_step + '\n'
 
                         list_of_instructions = list_of_instructions + instructions + '\n'
                         i = i + 1
@@ -332,17 +323,9 @@ def chat_with_bot(message):
                 return 10  # Spooncular api error
 
         elif option == 5:
-            pd = {
-                'id': str(id_of_choose_recipe)
-            }
-
-            id = str(id_of_choose_recipe)
-
-            get_from_url = base_url + id + '/' + url_get_nutrition + api_key
 
             try:
-                rez = req.get(get_from_url, pd)
-                json_result = rez.json()
+                json_result = get_specified_info_for_recipe(url_get_nutrition)
 
                 try:
                     calories_r = str(json_result["calories"])
@@ -362,17 +345,9 @@ def chat_with_bot(message):
                 return 10
 
         elif option == 6:
-            pd = {
-                'id': str(id_of_choose_recipe)
-            }
-
-            id = str(id_of_choose_recipe)
-
-            get_from_url = base_url + id + '/' + url_get_equipment + api_key
 
             try:
-                rez = req.get(get_from_url, pd)
-                json_result = rez.json()
+                json_result = get_specified_info_for_recipe(url_get_equipment)
 
                 try:
                     equipment = ""
@@ -386,7 +361,6 @@ def chat_with_bot(message):
 
                 except (IndexError, KeyError):
                     return 0
-
 
             except ConnectionError:
                 return 10
