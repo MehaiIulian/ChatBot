@@ -52,11 +52,8 @@ def send_vegetarian_recipes():
 
 def get_vegetarian_recipes():
     global string_of_recipes
-    string_of_recipes = ""
-    clear_last_data_of_recipes()
     print(string_of_recipes)
 
-    print(string_of_recipes)
     pd = {
         'number': 15,
         'tags': "vegetarian",
@@ -102,8 +99,6 @@ def send_recipes_with_ingredients():
 
 def get_recipes_with_ingredients(ingredients, number):
     global string_of_recipes
-    string_of_recipes = ""
-    clear_last_data_of_recipes()
 
     user_ingredients = ingredients
     user_ingredients = ",".join(user_ingredients.split(" "))
@@ -369,6 +364,10 @@ def chat_with_bot(message):
             return response
 
         elif option == 8:
+            global string_of_recipes
+            global id_of_choose_recipe
+            string_of_recipes = ""
+            id_of_choose_recipe = -1
             return 1  # For new ingredients
 
         elif option == 9:
