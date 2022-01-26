@@ -52,6 +52,8 @@ def send_vegetarian_recipes():
 
 def get_vegetarian_recipes():
     global string_of_recipes
+    clear_last_data_of_recipes()
+
     print(string_of_recipes)
 
     pd = {
@@ -99,6 +101,7 @@ def send_recipes_with_ingredients():
 
 def get_recipes_with_ingredients(ingredients, number):
     global string_of_recipes
+    clear_last_data_of_recipes()
 
     user_ingredients = ingredients
     user_ingredients = ",".join(user_ingredients.split(" "))
@@ -162,6 +165,7 @@ def send_choice_of_user():
     time.sleep(2)
 
     global id_of_choose_recipe
+    id_of_choose_recipe = -1
 
     try:
         id = id_of_recipes[user_choice - 1]
