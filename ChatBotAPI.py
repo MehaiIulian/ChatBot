@@ -369,6 +369,7 @@ def chat_with_bot(message):
             return response
 
         elif option == 8:
+            clear_last_data_of_recipes()
             global string_of_recipes
             global id_of_choose_recipe
             string_of_recipes = ""
