@@ -97,6 +97,7 @@ def get_vegetarian_recipes():
 def send_recipes_with_ingredients():
     ingredients = request.args.get('ingredients')
     number = int(request.args.get('number'))
+
     response = get_recipes_with_ingredients(ingredients, number)
     time.sleep(3)
     return jsonify(chatBotReply=response)
@@ -170,6 +171,7 @@ def send_choice_of_user():
     id_of_choose_recipe = -1
 
     try:
+        print(id_of_recipes)
         id = id_of_recipes[user_choice - 1]
         id_of_choose_recipe = id
         print(id_of_choose_recipe)
