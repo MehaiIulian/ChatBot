@@ -46,8 +46,9 @@ def clear_last_data_of_recipes():
 # http://127.0.0.1:5000/get-vegetarian-recipes
 @app.route('/get-vegetarian-recipes', methods=['GET', 'POST'])
 def send_vegetarian_recipes():
-    time.sleep(2)
-    return jsonify(chatBotReply=get_vegetarian_recipes())
+    response = get_vegetarian_recipes()
+    time.sleep(3)
+    return jsonify(chatBotReply=response)
 
 
 def get_vegetarian_recipes():
@@ -96,8 +97,9 @@ def get_vegetarian_recipes():
 def send_recipes_with_ingredients():
     ingredients = request.args.get('ingredients')
     number = int(request.args.get('number'))
-    time.sleep(2)
-    return jsonify(chatBotReply=get_recipes_with_ingredients(ingredients, number))
+    response = get_recipes_with_ingredients(ingredients, number)
+    time.sleep(3)
+    return jsonify(chatBotReply=response)
 
 
 def get_recipes_with_ingredients(ingredients, number):
@@ -163,7 +165,6 @@ def send_choice_of_user():
         return jsonify(chatBotReply=-1)
 
     user_choice = int(user_choice)
-    time.sleep(2)
 
     global id_of_choose_recipe
     id_of_choose_recipe = -1
@@ -179,6 +180,8 @@ def send_choice_of_user():
         response = 0
         response = int(response)
 
+    time.sleep(3)
+
     return jsonify(chatBotReply=response)
 
 
@@ -189,8 +192,9 @@ def send_response_from_bot():
     if message.lower() == "exit" or message.lower() == "quit":
         return jsonify(chatBotReply=-1)
 
-    time.sleep(2)
-    return jsonify(chatBotReply=chat_with_bot(message))
+    response = chat_with_bot(message)
+    time.sleep(3)
+    return jsonify(chatBotReply=response)
 
 
 def response_from_bot(response):
