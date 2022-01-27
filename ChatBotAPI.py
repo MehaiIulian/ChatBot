@@ -105,8 +105,6 @@ def send_recipes_with_ingredients():
 
 def get_recipes_with_ingredients(ingredients, number):
     global string_of_recipes
-    global id_of_recipes
-    global title_of_recipes
     clear_last_data_of_recipes()
     string_of_recipes = ""
     user_ingredients = ingredients
@@ -163,9 +161,6 @@ def get_recipes_with_ingredients(ingredients, number):
 # http://127.0.0.1:5000/pick-recipe-number?number=3
 @app.route('/pick-recipe-number', methods=['GET', 'POST'])
 def send_choice_of_user():
-    global string_of_recipes
-    global id_of_recipes
-    global title_of_recipes
     user_choice = request.args.get('number')
     if user_choice.lower() == "exit" or user_choice.lower() == "quit":
         return jsonify(chatBotReply=-1)
@@ -242,8 +237,6 @@ def get_specified_info_for_recipe(specific_url):
 
 def chat_with_bot(message):
     global string_of_recipes
-    global id_of_recipes
-    global title_of_recipes
 
     message = str(message)
 
