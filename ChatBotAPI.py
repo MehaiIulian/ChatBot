@@ -194,9 +194,8 @@ def send_response_from_bot():
     if message.lower() == "exit" or message.lower() == "quit":
         return jsonify(chatBotReply=-1)
 
-    response = chat_with_bot(message)
     time.sleep(3)
-    return jsonify(chatBotReply=response)
+    return jsonify(chatBotReply=chat_with_bot(message))
 
 
 def response_from_bot(response):
