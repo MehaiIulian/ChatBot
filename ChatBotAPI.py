@@ -267,11 +267,11 @@ def chat_with_bot(message):
                     i = 0
                     for j in json_result["ingredients"]:
                         name = json_result["ingredients"][i]["name"]
-                        ingredients_name.extend(name)
+                        ingredients_name.append(name)
                         weight = json_result["ingredients"][i]["amount"]["metric"]["value"]
-                        ingredients_weight.extend(weight)
+                        ingredients_weight.append(weight)
                         quantity = json_result["ingredients"][i]["amount"]["metric"]["unit"]
-                        ingredients_unit.extend(quantity)
+                        ingredients_unit.append(quantity)
                         i = i + 1
 
                     i = 0
