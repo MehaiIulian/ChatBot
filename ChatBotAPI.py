@@ -405,7 +405,8 @@ def chat_with_bot(message):
             print(overview_message)
             return overview_message
         else:
-            return "I am not sure what you want to do. Can you rephrase your question?"
+            response = "I am not sure what you want to do. Can you rephrase your question?"
+            return response
 
 
 if __name__ == '__main__':
