@@ -47,7 +47,7 @@ def clear_last_data_of_recipes():
 @app.route('/get-vegetarian-recipes', methods=['GET', 'POST'])
 def send_vegetarian_recipes():
     response = get_vegetarian_recipes()
-    time.sleep(3)
+    time.sleep(2)
     return jsonify(chatBotReply=response)
 
 
@@ -100,7 +100,6 @@ def send_recipes_with_ingredients():
     time.sleep(2)
 
     response = get_recipes_with_ingredients(ingredients, number)
-    time.sleep(1)
     return jsonify(chatBotReply=response)
 
 
@@ -195,7 +194,6 @@ def send_choice_of_user():
         response = 0
         response = int(response)
 
-    time.sleep(1)
     return jsonify(chatBotReply=response)
 
 
@@ -207,8 +205,6 @@ def send_response_from_bot():
 
     if message.lower() == "exit" or message.lower() == "quit":
         return jsonify(chatBotReply=-1)
-
-    time.sleep(1)
     return jsonify(chatBotReply=chat_with_bot(message))
 
 
@@ -298,6 +294,7 @@ def chat_with_bot(message):
                         recipe_ingredients = recipe_ingredients + " " + str(ingredients_name[i]) + '\n'
                         i = i + 1
 
+                    print(recipe_ingredients)
                     return recipe_ingredients
 
                 except (KeyError, IndexError):
@@ -334,6 +331,8 @@ def chat_with_bot(message):
 
                         list_of_instructions = list_of_instructions + instructions + '\n'
                         i = i + 1
+
+                    print(list_of_instructions)
                     return list_of_instructions
                 except (KeyError, IndexError):
                     return 0
@@ -356,6 +355,7 @@ def chat_with_bot(message):
                     protein_r = str(json_result["protein"])
                     protein = "protein:" + protein_r + '\n'
                     nutrition = calories + carbs + fat + protein
+                    print(nutrition)
                     return nutrition
                 except (IndexError, KeyError):
                     return 0
@@ -383,9 +383,6 @@ def chat_with_bot(message):
 
             except ConnectionError:
                 return 10
-
-        elif option == 7:
-            return response
 
         elif option == 8:
             clear_last_data_of_recipes()
