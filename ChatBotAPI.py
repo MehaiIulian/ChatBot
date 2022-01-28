@@ -184,6 +184,7 @@ def send_choice_of_user():
     try:
         array_of_titles = get_title_of_recipes()
         array_of_ids = get_id_of_recipes()
+        print(array_of_titles)
         print(array_of_ids)
         id = array_of_ids[user_choice - 1]
         id_of_choose_recipe = id
