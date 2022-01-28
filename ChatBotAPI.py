@@ -314,7 +314,7 @@ def chat_with_bot(message):
 
                     for j in json_result:
                         instructions = ""
-                        step = str(i) + ".Step " + str(json_result[i]["name"])
+                        step = str(i + 1) + ".Step " + str(json_result[i]["name"])
                         list_of_instructions = list_of_instructions + step + '\n' #shhesh
                         for k in json_result[i]['steps']:
                             steps = k['step']
