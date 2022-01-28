@@ -255,8 +255,8 @@ def chat_with_bot(message):
     results_index = numpy.argmax(res)
     tag = labels[results_index]
 
-    # If confidence level is higher 75%, open up the json file, find specific tag and spit out response
-    if res[results_index] > 0.75:
+    # If confidence level is higher 70%, open up the json file, find specific tag and spit out response
+    if res[results_index] > 0.70:
 
         for tg in data["intents"]:
             if tg['tag'] == tag:
@@ -264,7 +264,6 @@ def chat_with_bot(message):
 
         response = choice(responses)
         option = response_from_bot(response)
-        print(option)
         if option == 1 or option == 2 or option == 7:
             return response
 
@@ -406,9 +405,9 @@ def chat_with_bot(message):
             print(string_of_recipes)
             print(overview_message)
             return overview_message
-        else:
-            response = "I am not sure what you want to do. Can you rephrase your question?"
-            return response
+    else:
+        response = "I am not sure what you want to do. Can you rephrase your question?"
+        return response
 
 
 if __name__ == '__main__':
