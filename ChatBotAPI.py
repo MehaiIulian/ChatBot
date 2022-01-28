@@ -182,18 +182,15 @@ def send_choice_of_user():
     id_of_choose_recipe = -1
 
     try:
-        array_of_titles = get_title_of_recipes()
-        array_of_ids = get_id_of_recipes()
-        print(array_of_titles)
-        print(array_of_ids)
-        id = array_of_ids[user_choice - 1]
+        print(get_id_of_recipes())
+        print(get_title_of_recipes())
+        print(id_of_recipes)
+        id = id_of_recipes[user_choice - 1]
         id_of_choose_recipe = id
         print(id_of_choose_recipe)
         choice_of_user = "You picked \n" + str(
-            array_of_titles[user_choice - 1]) + '.' + '\n' + "Hope you like it!!\n "
+            title_of_recipes[user_choice - 1]) + '.' + '\n' + "Hope you like it!!\n "
         response = choice_of_user
-        array_of_titles.clear()
-        array_of_ids.clear()
     except (IndexError, KeyError):
         response = 0
         response = int(response)
