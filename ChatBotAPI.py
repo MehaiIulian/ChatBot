@@ -191,6 +191,8 @@ def send_choice_of_user():
         choice_of_user = "You picked \n" + str(
             array_of_titles[user_choice - 1]) + '.' + '\n' + "Hope you like it!!\n "
         response = choice_of_user
+        array_of_titles.clear()
+        array_of_ids.clear()
     except (IndexError, KeyError):
         response = 0
         response = int(response)
