@@ -315,7 +315,7 @@ def chat_with_bot(message):
                     for j in json_result:
                         instructions = ""
                         step = str(i) + ".Step " + str(json_result[i]["name"])
-                        list_of_instructions = list_of_instructions + step + '\n'
+                        list_of_instructions = list_of_instructions + step + '\n' #shhesh
                         for k in json_result[i]['steps']:
                             steps = k['step']
                             instruction_to = steps.split(".")
