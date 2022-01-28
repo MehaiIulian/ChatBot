@@ -47,7 +47,7 @@ def clear_last_data_of_recipes():
 @app.route('/get-vegetarian-recipes', methods=['GET', 'POST'])
 def send_vegetarian_recipes():
     response = get_vegetarian_recipes()
-    time.sleep(2)
+    time.sleep(3)
     return jsonify(chatBotReply=response)
 
 
@@ -100,7 +100,7 @@ def send_recipes_with_ingredients():
     time.sleep(2)
 
     response = get_recipes_with_ingredients(ingredients, number)
-
+    time.sleep(1)
     return jsonify(chatBotReply=response)
 
 
@@ -159,11 +159,20 @@ def get_recipes_with_ingredients(ingredients, number):
             return 10
 
 
+def get_id_of_recipes():
+    return id_of_recipes
+
+
+def get_title_of_recipes():
+    return title_of_recipes
+
+
 # http://127.0.0.1:5000/pick-recipe-number?number=3
 @app.route('/pick-recipe-number', methods=['GET', 'POST'])
 def send_choice_of_user():
     user_choice = request.args.get('number')
     time.sleep(2)
+
     if user_choice.lower() == "exit" or user_choice.lower() == "quit":
         return jsonify(chatBotReply=-1)
 
@@ -173,19 +182,20 @@ def send_choice_of_user():
     id_of_choose_recipe = -1
 
     try:
-        print(id_of_recipes)
-        id = id_of_recipes[user_choice - 1]
+        array_of_titles = get_title_of_recipes()
+        array_of_ids = get_id_of_recipes()
+        print(array_of_ids)
+        id = array_of_ids[user_choice - 1]
         id_of_choose_recipe = id
         print(id_of_choose_recipe)
         choice_of_user = "You picked \n" + str(
-            title_of_recipes[user_choice - 1]) + '.' + '\n' + " Hope you like it!!\n "
+            array_of_titles[user_choice - 1]) + '.' + '\n' + "Hope you like it!!\n "
         response = choice_of_user
     except (IndexError, KeyError):
         response = 0
         response = int(response)
 
-
-
+    time.sleep(1)
     return jsonify(chatBotReply=response)
 
 
@@ -198,7 +208,7 @@ def send_response_from_bot():
     if message.lower() == "exit" or message.lower() == "quit":
         return jsonify(chatBotReply=-1)
 
-
+    time.sleep(1)
     return jsonify(chatBotReply=chat_with_bot(message))
 
 
@@ -295,7 +305,6 @@ def chat_with_bot(message):
             except ConnectionError:
                 return 10  # Spooncular api error
 
-
         elif option == 4:
 
             try:
@@ -308,8 +317,8 @@ def chat_with_bot(message):
 
                     for j in json_result:
                         instructions = ""
-                        step = str(json_result[i]["name"])
-                        list_of_instructions = "Steps ... " + list_of_instructions + step + '\n'
+                        step = str(i) + ".Step " + str(json_result[i]["name"])
+                        list_of_instructions = list_of_instructions + step + + '\n'
                         for k in json_result[i]['steps']:
                             steps = k['step']
                             instruction_to = steps.split(".")
