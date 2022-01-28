@@ -255,8 +255,8 @@ def chat_with_bot(message):
     results_index = numpy.argmax(res)
     tag = labels[results_index]
 
-    # If confidence level is higher 70%, open up the json file, find specific tag and spit out response
-    if res[results_index] > 0.70:
+    # If confidence level is higher 80%, open up the json file, find specific tag and spit out response
+    if res[results_index] > 0.80:
 
         for tg in data["intents"]:
             if tg['tag'] == tag:
