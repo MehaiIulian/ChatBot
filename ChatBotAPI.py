@@ -31,7 +31,7 @@ api_key = "bb238c76bf8e4034829176f6fbd152ca"
 
 # global variables
 id_of_choose_recipe = -1
-string_of_recipes: str = ""
+string_of_recipes = ""
 
 # global arrays to contain information about recipes
 id_of_recipes = []
@@ -247,8 +247,6 @@ def get_specified_info_for_recipe(specific_url):
 
 
 def chat_with_bot(message):
-    global string_of_recipes
-
     message = str(message)
 
     res = model.predict([bag_of_words(message, words)])[0]
