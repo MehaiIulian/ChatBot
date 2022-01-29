@@ -247,6 +247,7 @@ def get_specified_info_for_recipe(specific_url):
 
 
 def chat_with_bot(message):
+    global string_of_recipes
     message = str(message)
 
     res = model.predict([bag_of_words(message, words)])[0]
@@ -393,7 +394,7 @@ def chat_with_bot(message):
 
         elif option == 9:
 
-            global string_of_recipes
+
             string = "Welcome (back) to the overview:"
             string_of_recipes = ""
             i = 0
