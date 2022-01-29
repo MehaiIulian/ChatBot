@@ -31,7 +31,7 @@ api_key = "bb238c76bf8e4034829176f6fbd152ca"
 
 # global variables
 id_of_choose_recipe = -1
-string_of_recipes = ""
+string_of_recipes: str = ""
 
 # global arrays to contain information about recipes
 id_of_recipes = []
