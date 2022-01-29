@@ -314,7 +314,7 @@ def chat_with_bot(message):
                     for j in json_result:
                         instructions = ""
                         step = str(i + 1) + ".Step " + str(json_result[i]["name"])
-                        list_of_instructions = list_of_instructions + step + '\n' #shhesh
+                        list_of_instructions = list_of_instructions + step + '\n'  # shhesh
                         for k in json_result[i]['steps']:
                             steps = k['step']
                             instruction_to = steps.split(".")
@@ -392,7 +392,14 @@ def chat_with_bot(message):
             return 1  # For new ingredients
 
         elif option == 9:
+            global string_of_recipes
             string = "Welcome (back) to the overview:"
+            string_of_recipes = ""
+            i = 0
+            for j in title_of_recipes:
+                i = i + 1
+                string_of_recipes = string_of_recipes + str(i) + "." + str(j) + '\n'
+
             overview_message = string + '\n' + string_of_recipes
             print(string_of_recipes)
             print(overview_message)
