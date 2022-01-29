@@ -31,7 +31,7 @@ api_key = "bb238c76bf8e4034829176f6fbd152ca"
 
 # global variables
 id_of_choose_recipe = -1
-string_of_recipes = ""
+string_of_recipes: str = ""
 
 # global arrays to contain information about recipes
 id_of_recipes = []
@@ -392,6 +392,7 @@ def chat_with_bot(message):
             return 1  # For new ingredients
 
         elif option == 9:
+
             global string_of_recipes
             string = "Welcome (back) to the overview:"
             string_of_recipes = ""
