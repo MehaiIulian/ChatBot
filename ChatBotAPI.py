@@ -399,16 +399,11 @@ def chat_with_bot(message):
 
         elif option == 9:
 
-            print(title_of_recipes)
             if not title_of_recipes:
                 get_recipes_with_ingredients(ingredients, number)
+                print(title_of_recipes)
             print(title_of_recipes)
             string = "Welcome (back) to the overview:"
-            string_of_recipes = ""
-            i = 0
-            for j in title_of_recipes:
-                i = i + 1
-                string_of_recipes = string_of_recipes + str(i) + "." + str(j) + '\n'
 
             overview_message = string + '\n' + string_of_recipes
             print(string_of_recipes)
