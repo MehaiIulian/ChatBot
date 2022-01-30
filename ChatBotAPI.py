@@ -393,11 +393,11 @@ def chat_with_bot(message):
 
         elif option == 9:
 
-
+            array = get_title_of_recipes()
             string = "Welcome (back) to the overview:"
             string_of_recipes = ""
             i = 0
-            for j in title_of_recipes:
+            for j in array:
                 i = i + 1
                 string_of_recipes = string_of_recipes + str(i) + "." + str(j) + '\n'
 
