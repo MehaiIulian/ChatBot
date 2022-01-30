@@ -91,15 +91,9 @@ def get_vegetarian_recipes():
         return 10
 
 
-ingredients = ""
-number = -1
-
-
 # http://127.0.0.1:5000/get-recipe-by-user-ingredients?ingredients=chicken&number=5
 @app.route('/get-recipe-by-user-ingredients', methods=['GET', 'POST'])
 def send_recipes_with_ingredients():
-    global ingredients
-    global number
     ingredients = request.args.get('ingredients')
     number = int(request.args.get('number'))
 
@@ -389,21 +383,19 @@ def chat_with_bot(message):
             clear_last_data_of_recipes()
             global string_of_recipes
             global id_of_choose_recipe
-            global ingredients
-            global number
             string_of_recipes = ""
             id_of_choose_recipe = -1
-            number = -1
-            ingredients = ""
             return 1  # For new ingredients
 
         elif option == 9:
-
             if not title_of_recipes:
-                get_recipes_with_ingredients(ingredients, number)
-                print(title_of_recipes)
-            print(title_of_recipes)
+                return 0
             string = "Welcome (back) to the overview:"
+            string_of_recipes = ""
+            i = 0
+            for j in title_of_recipes:
+                i = i + 1
+                string_of_recipes = string_of_recipes + str(i) + "." + str(j) + '\n'
 
             overview_message = string + '\n' + string_of_recipes
             print(string_of_recipes)
