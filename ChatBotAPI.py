@@ -47,7 +47,6 @@ def clear_last_data_of_recipes():
 @app.route('/get-vegetarian-recipes', methods=['GET', 'POST'])
 def send_vegetarian_recipes():
     response = get_vegetarian_recipes()
-    time.sleep(1)
     return jsonify(chatBotReply=response)
 
 
@@ -97,7 +96,6 @@ def get_vegetarian_recipes():
 def send_recipes_with_ingredients():
     ingredients = request.args.get('ingredients')
     number = int(request.args.get('number'))
-    time.sleep(1)
 
     response = get_recipes_with_ingredients(ingredients, number)
     return jsonify(chatBotReply=response)
@@ -173,7 +171,6 @@ def send_choice_of_user():
     id_of_choose_recipe = -1
 
     user_choice = request.args.get('number')
-    time.sleep(1)
 
     if user_choice.lower() == "exit" or user_choice.lower() == "quit":
         return jsonify(chatBotReply=-1)
@@ -200,7 +197,6 @@ def send_choice_of_user():
 @app.route('/chat-with-bot', methods=['GET', 'POST'])
 def send_response_from_bot():
     message = request.args.get('message')
-    time.sleep(1)
 
     if message.lower() == "exit" or message.lower() == "quit":
         return jsonify(chatBotReply=-1)
@@ -393,11 +389,10 @@ def chat_with_bot(message):
 
         elif option == 9:
 
-            array = get_title_of_recipes()
             string = "Welcome (back) to the overview:"
             string_of_recipes = ""
             i = 0
-            for j in array:
+            for j in title_of_recipes:
                 i = i + 1
                 string_of_recipes = string_of_recipes + str(i) + "." + str(j) + '\n'
 
