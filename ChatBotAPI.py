@@ -388,8 +388,6 @@ def chat_with_bot(message):
             return 1  # For new ingredients
 
         elif option == 9:
-            if not title_of_recipes:
-                return 0
             string = "Welcome (back) to the overview:"
             string_of_recipes = ""
             i = 0
@@ -397,8 +395,12 @@ def chat_with_bot(message):
                 i = i + 1
                 string_of_recipes = string_of_recipes + str(i) + "." + str(j) + '\n'
 
+            if string_of_recipes == "":
+                return 0
             overview_message = string + '\n' + string_of_recipes
+
             print(string_of_recipes)
+
             print(overview_message)
             return overview_message
     else:
