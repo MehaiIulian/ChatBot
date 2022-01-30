@@ -186,6 +186,13 @@ def send_choice_of_user():
     try:
         print(get_id_of_recipes())
         print(get_title_of_recipes())
+
+        if not id_of_recipes:
+            if ingredients != "" and number != -1:
+                get_recipes_with_ingredients()
+            else:
+                get_vegetarian_recipes()
+
         print(id_of_recipes)
         id = id_of_recipes[user_choice - 1]
         id_of_choose_recipe = id
