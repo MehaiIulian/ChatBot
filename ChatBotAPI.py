@@ -58,6 +58,7 @@ def get_vegetarian_recipes():
 
     print(string_of_recipes)
 
+    # prepare the payload with data
     pd = {
         'number': 15,
         'tags': "vegetarian",

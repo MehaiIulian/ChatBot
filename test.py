@@ -1,7 +1,6 @@
-
 import requests as req
 
-id_of_choose_recipe= 776505
+id_of_choose_recipe = 776505
 
 base_url = "https://api.spoonacular.com/recipes/"
 url_get_by_ingredients = "findByIngredients?apiKey="
@@ -11,6 +10,7 @@ url_get_nutrition = "nutritionWidget.json?apiKey="
 url_get_equipment = "equipmentWidget.json?apiKey="
 url_get_instructions = "analyzedInstructions?apiKey="
 api_key = "bb238c76bf8e4034829176f6fbd152ca"
+
 
 def get_specified_info_for_recipe(specific_url):
     pd = {
@@ -49,16 +49,12 @@ def test():
 
                 l = l.strip(' ')
 
-
-
-
-
-
                 s_step = " > " + l + "."
                 instructions = instructions + s_step + '\n'
 
         list_of_instructions = list_of_instructions + instructions + '\n'
         i = i + 1
     return list_of_instructions
+
 
 print(test())
