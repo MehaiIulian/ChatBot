@@ -263,6 +263,27 @@
         "Here is the equipment you need:"
       ],
       "context_set": ""
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "goodbye",
+        "I need go now",
+        "thanks, I will leave now help",
+        "I found what I wanted I go now",
+        "I go now",
+        "time to go",
+        "go to cook it",
+        "I'm going to buy bye",
+        "bye",
+        "bye bye",
+        "see you later",
+        "closing the application"
+      ],
+      "responses": [
+        "Bye!"
+      ],
+      "context_set": ""
     }
   ]
 }

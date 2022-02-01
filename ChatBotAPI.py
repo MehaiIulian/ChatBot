@@ -227,6 +227,8 @@ def response_from_bot(response):
         return 8
     elif response == "Welcome (back) to the overview:" or response == "Welcome (back) to the menu:":
         return 9
+    elif response == "Bye!":
+        return -1
     else:
         return 100
 
@@ -265,6 +267,9 @@ def chat_with_bot(message):
         option = response_from_bot(response)
         if option == 1 or option == 2 or option == 7:
             return response
+
+        elif response == -1:
+            return -1
 
         elif option == 3:
 
