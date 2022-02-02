@@ -268,7 +268,7 @@ def chat_with_bot(message):
         if option == 1 or option == 2 or option == 7:
             return response
 
-        elif response == -1:
+        elif option == -1:
             return -1
 
         elif option == 3:
