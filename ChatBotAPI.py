@@ -5,7 +5,6 @@ from flask import Flask, request, jsonify
 
 import requests as req
 
-# Import necessary data from ChatBot to use for chat
 from ChatBot import model, bag_of_words, words, labels, data
 
 import time
@@ -19,7 +18,6 @@ def home():
     return "API for delivering recipes to the user! Running now ..."
 
 
-# Defining Spooncular API url's and enpoints to get data
 base_url = "https://api.spoonacular.com/recipes/"
 url_get_by_ingredients = "findByIngredients?apiKey="
 url_get_by_vegetarian = "random?apiKey="
@@ -29,11 +27,9 @@ url_get_equipment = "equipmentWidget.json?apiKey="
 url_get_instructions = "analyzedInstructions?apiKey="
 api_key = "bb238c76bf8e4034829176f6fbd152ca"
 
-# global variables
 id_of_choose_recipe = -1
 string_of_recipes: str = ""
 
-# global arrays to contain information about recipes
 id_of_recipes = []
 title_of_recipes = []
 
@@ -43,7 +39,6 @@ def clear_last_data_of_recipes():
     title_of_recipes.clear()
 
 
-# http://127.0.0.1:5000/get-vegetarian-recipes
 @app.route('/get-vegetarian-recipes', methods=['GET', 'POST'])
 def send_vegetarian_recipes():
     response = get_vegetarian_recipes()
@@ -58,7 +53,6 @@ def get_vegetarian_recipes():
 
     print(string_of_recipes)
 
-    # prepare the payload with data
     pd = {
         'number': 15,
         'tags': "vegetarian",
@@ -93,7 +87,6 @@ def get_vegetarian_recipes():
         return 10
 
 
-# http://127.0.0.1:5000/get-recipe-by-user-ingredients?ingredients=chicken&number=5
 @app.route('/get-recipe-by-user-ingredients', methods=['GET', 'POST'])
 def send_recipes_with_ingredients():
     ingredients = request.args.get('ingredients')
@@ -167,7 +160,6 @@ def get_title_of_recipes():
     return title_of_recipes
 
 
-# http://127.0.0.1:5000/pick-recipe-number?number=3
 @app.route('/pick-recipe-number', methods=['GET', 'POST'])
 def send_choice_of_user():
     global id_of_choose_recipe
@@ -197,7 +189,6 @@ def send_choice_of_user():
     return jsonify(chatBotReply=response)
 
 
-# http://127.0.0.1:5000/chat-with-bot?message=hi
 @app.route('/chat-with-bot', methods=['GET', 'POST'])
 def send_response_from_bot():
     message = request.args.get('message')
@@ -256,7 +247,6 @@ def chat_with_bot(message):
     results_index = numpy.argmax(res)
     tag = labels[results_index]
 
-    # If confidence level is higher 80%, open up the json file, find specific tag and spit out response
     if res[results_index] > 0.80:
 
         for tg in data["intents"]:
@@ -305,7 +295,7 @@ def chat_with_bot(message):
                 except (KeyError, IndexError):
                     return 0
             except ConnectionError:
-                return 10  # Spooncular api error
+                return 10
 
         elif option == 4:
 
@@ -320,7 +310,7 @@ def chat_with_bot(message):
                     for j in json_result:
                         instructions = ""
                         step = str(i + 1) + ".Step " + str(json_result[i]["name"])
-                        list_of_instructions = list_of_instructions + step + '\n'  # shhesh
+                        list_of_instructions = list_of_instructions + step + '\n'
                         for k in json_result[i]['steps']:
                             steps = k['step']
                             instruction_to = steps.split(".")
@@ -343,7 +333,7 @@ def chat_with_bot(message):
                     return 0
 
             except ConnectionError:
-                return 10  # Spooncular api error
+                return 10
 
         elif option == 5:
 
@@ -395,7 +385,7 @@ def chat_with_bot(message):
             global id_of_choose_recipe
             string_of_recipes = ""
             id_of_choose_recipe = -1
-            return 1  # For new ingredients
+            return 1
 
         elif option == 9:
             string = "Welcome (back) to the overview:"
