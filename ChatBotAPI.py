@@ -254,6 +254,8 @@ def response_from_bot(response):
 
 
 def get_specified_info_for_recipe(specific_url):
+    global id_of_choose_recipe
+
     pd = {
         'id': str(id_of_choose_recipe)
     }
@@ -270,6 +272,7 @@ def get_specified_info_for_recipe(specific_url):
 
 def chat_with_bot(message):
     global string_of_recipes
+    global image_of_choose_recipe
 
     message = str(message)
 
@@ -290,7 +293,6 @@ def chat_with_bot(message):
 
         elif option == -1:
             return -1
-
 
         elif option == 3:
 
