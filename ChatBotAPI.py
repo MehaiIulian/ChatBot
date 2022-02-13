@@ -15,6 +15,15 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/home')
 def home():
+    global id_of_choose_recipe
+    global image_of_choose_recipe
+    global string_of_recipes
+
+    id_of_choose_recipe = -1
+    image_of_choose_recipe = ""
+    string_of_recipes = ""
+
+    clear_last_data_of_recipes()
     return "API for delivering recipes to the user! Running now ..."
 
 
@@ -44,6 +53,12 @@ def clear_last_data_of_recipes():
 
 @app.route('/get-vegetarian-recipes', methods=['GET', 'POST'])
 def send_vegetarian_recipes():
+    global string_of_recipes
+    clear_last_data_of_recipes()
+    string_of_recipes = ""
+
+    print(string_of_recipes)
+
     response = get_vegetarian_recipes()
     time.sleep(1)
     return jsonify(chatBotReply=response)
@@ -51,10 +66,6 @@ def send_vegetarian_recipes():
 
 def get_vegetarian_recipes():
     global string_of_recipes
-    clear_last_data_of_recipes()
-    string_of_recipes = ""
-
-    print(string_of_recipes)
 
     pd = {
         'number': 15,
@@ -94,6 +105,12 @@ def get_vegetarian_recipes():
 
 @app.route('/get-recipe-by-user-ingredients', methods=['GET', 'POST'])
 def send_recipes_with_ingredients():
+    global string_of_recipes
+    clear_last_data_of_recipes()
+    string_of_recipes = ""
+
+    print(string_of_recipes)
+
     ingredients = request.args.get('ingredients')
     number = int(request.args.get('number'))
 
@@ -104,8 +121,7 @@ def send_recipes_with_ingredients():
 
 def get_recipes_with_ingredients(ingredients_, number_):
     global string_of_recipes
-    clear_last_data_of_recipes()
-    string_of_recipes = ""
+
     user_ingredients = ingredients_
     user_ingredients = ",".join(user_ingredients.split(" "))
 
