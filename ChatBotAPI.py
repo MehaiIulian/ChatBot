@@ -28,15 +28,18 @@ url_get_instructions = "analyzedInstructions?apiKey="
 api_key = "bb238c76bf8e4034829176f6fbd152ca"
 
 id_of_choose_recipe = -1
+image_of_choose_recipe: str = ""
 string_of_recipes: str = ""
 
 id_of_recipes = []
 title_of_recipes = []
+images_of_recipes = []
 
 
 def clear_last_data_of_recipes():
     id_of_recipes.clear()
     title_of_recipes.clear()
+    images_of_recipes.clear()
 
 
 @app.route('/get-vegetarian-recipes', methods=['GET', 'POST'])
@@ -71,6 +74,8 @@ def get_vegetarian_recipes():
                 title_of_recipes.append(title)
                 id = i["id"]
                 id_of_recipes.append(id)
+                image = i["image"]
+                images_of_recipes.append(image)
 
             i = 0
             for j in title_of_recipes:
@@ -132,6 +137,8 @@ def get_recipes_with_ingredients(ingredients_, number_):
                     title_of_recipes.append(title)
                     id = json_result[counter]["id"]
                     id_of_recipes.append(id)
+                    image = json_result[counter]["image"]
+                    images_of_recipes.append(image)
                     counter = counter + 1
 
                 except (IndexError, KeyError):
@@ -163,7 +170,9 @@ def get_title_of_recipes():
 @app.route('/pick-recipe-number', methods=['GET', 'POST'])
 def send_choice_of_user():
     global id_of_choose_recipe
+    global image_of_choose_recipe
     id_of_choose_recipe = -1
+    image_of_choose_recipe = ""
 
     user_choice = request.args.get('number')
 
@@ -177,7 +186,9 @@ def send_choice_of_user():
         print(get_title_of_recipes())
         print(id_of_recipes)
         id = id_of_recipes[user_choice - 1]
+        image = images_of_recipes[user_choice - 1]
         id_of_choose_recipe = id
+        image_of_choose_recipe = image
         print(id_of_choose_recipe)
         choice_of_user = "You picked \n" + str(
             title_of_recipes[user_choice - 1]) + '.' + '\n' + "Hope you like it!!\n "
@@ -218,6 +229,8 @@ def response_from_bot(response):
         return 8
     elif response == "Welcome (back) to the overview:" or response == "Welcome (back) to the menu:":
         return 9
+    elif response == "Here is the image!" or response == "Here is the picture!" or response == "Here is the look!":
+        return 11
     elif response == "Bye!":
         return -1
     else:
@@ -241,6 +254,7 @@ def get_specified_info_for_recipe(specific_url):
 
 def chat_with_bot(message):
     global string_of_recipes
+
     message = str(message)
 
     res = model.predict([bag_of_words(message, words)])[0]
@@ -260,6 +274,7 @@ def chat_with_bot(message):
 
         elif option == -1:
             return -1
+
 
         elif option == 3:
 
@@ -383,7 +398,9 @@ def chat_with_bot(message):
             clear_last_data_of_recipes()
             global string_of_recipes
             global id_of_choose_recipe
+            global image_of_choose_recipe
             string_of_recipes = ""
+            image_of_choose_recipe = ""
             id_of_choose_recipe = -1
             return 1
 
@@ -403,6 +420,11 @@ def chat_with_bot(message):
 
             print(overview_message)
             return overview_message
+
+        elif option == 11:
+
+            return image_of_choose_recipe
+
     else:
         response = "I am not sure what you want to do. Can you rephrase your question?"
         return response

@@ -92,3 +92,18 @@ def bag_of_words(s, words):
                 bag[i] = 1
 
     return numpy.array(bag)
+
+
+res = model.predict([bag_of_words("I want the rest of ingredients to buy!", words)])[0]
+results_index = numpy.argmax(res)
+print(res[results_index])
+res = model.predict([bag_of_words("Maybe show me the cooking steps", words)])[0]
+results_index = numpy.argmax(res)
+print(res[results_index])
+res = model.predict([bag_of_words("How healthy is the food", words)])[0]
+results_index = numpy.argmax(res)
+print(res[results_index])
+res = model.predict([bag_of_words("How does the food like it? Image of recipe to see", words)])[0]
+results_index = numpy.argmax(res)
+print(res[results_index])
+
