@@ -449,4 +449,4 @@ def chat_with_bot(message):
 
 
 if __name__ == '__main__':
-    app.run(threading=True)
+    app.run()
